@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prompt Builder v6.0</title>
+<title>Prompt Builder v6.0.1</title>
 <style>
 :root {
   --fs: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -704,11 +704,13 @@ function App(){
   };
 
   const genGPT=()=>{
-    const sc=styleCore(),enh=enhParts(),no=mj.useNo?noList():"";
+    // gpt-image-2 optimised order: scene/subject → mood/light → style/technique → colour → include/avoid → output
+    const sc=styleCore(),no=mj.useNo?noList():"";
     const styleStr=[sc,...getLQ()].filter(Boolean).join(", ");
     const includeStr=getELA().join(", ");
     const subj=subjectBlock(),scene=sceneBlock(),light=lightingBlock();
     const{srefUrls}=mjParams();
+    const needsThink=t.asymmetrical||chaosV>=21;
     const extras=[
       qHigh&&"Output resolution: maximum quality, high detail.",
       qLow&&"Output: standard quality.",
@@ -725,23 +727,41 @@ function App(){
     const techLine=[t.medium_technique&&`Technique: ${t.medium_technique}`,t.medium_render_style&&`Render style: ${t.medium_render_style}`,t.surface_quality&&`Surface: ${t.surface_quality}`,t.paper_texture&&`Paper: ${t.paper_texture}`,t.lens_focal&&`Focal length: ${t.lens_focal}`,t.film_stock&&`Film stock: ${t.film_stock}`,t.camera_model&&`Camera: ${t.camera_model}`,t.aperture&&`Aperture: ${t.aperture}`,t.depth_of_field&&`Depth of field: ${t.depth_of_field}`,t.rendering_engine&&`Engine: ${t.rendering_engine}`].filter(Boolean).join("; ");
     const compLine=[s.composition_style&&`Composition: ${s.composition_style}`,s.shooting_angle&&`Camera: ${s.shooting_angle}`,t.detail_level&&`Detail level: ${t.detail_level}`].filter(Boolean).join(" · ");
     const lines=imgMode?[
-      `Apply this illustration style to the attached image${s.main_subject?`, focusing on ${s.main_subject}`:""}${s.scene_environment?`, set in ${s.scene_environment}`:""}:`,
-      "",s.mood_emotion&&`Mood: ${s.mood_emotion}`,light&&`Lighting: ${light}`,atmLine&&`Atmosphere: ${atmLine}`,compLine,`Aspect ratio: ${s.aspect_ratio||"1:1"}`,
-      idLine&&`\nIdentity: ${idLine}`,techLine&&`Technical: ${techLine}`,
-      `\nStyle: ${styleStr||"expressive editorial illustration"}.`,colorLine,includeStr&&`\nInclude: ${includeStr}.`,no&&`Avoid: ${no}.`,
+      // 1. Scena e soggetto
+      `Apply this style to the attached image${s.main_subject?`, focusing on ${s.main_subject}`:""}${s.scene_environment?`, set in ${s.scene_environment}`:""}:`,
+      "",compLine,`Aspect ratio: ${s.aspect_ratio||"1:1"}`,
+      // 2. Mood e luce
+      s.mood_emotion&&`\nMood: ${s.mood_emotion}`,light&&`Lighting: ${light}`,atmLine&&`Atmosphere: ${atmLine}`,
+      // 3. Stile e tecnica
+      `\nStyle: ${styleStr||"expressive editorial illustration"}.`,idLine&&`Identity: ${idLine}`,techLine&&`Technical: ${techLine}`,
+      // 4. Colore
+      colorLine,
+      // 5. Include / Avoid
+      includeStr&&`\nInclude: ${includeStr}.`,no&&`Avoid: ${no}.`,
       (t.abstraction||t.motion||t.asymmetrical)&&"\nAdditional directives:",
       t.abstraction&&"- Increase abstraction while preserving subject identity.",t.motion&&"- Add motion using directional ink strokes.",t.asymmetrical&&"- Use asymmetrical cinematic composition.",
+      // 6. Output
       s.free_style_notes&&`\nNote: ${s.free_style_notes}`,extras.length>0&&`\nFrom configuration:\n${extras.join("\n")}`,
-      "\nOutput: high-resolution, clean white background, no text, no watermark, editorial/gallery quality."
+      needsThink&&"\nReason through composition and spatial relationships before generating.",
+      "\nOutput: high-resolution, no text, no watermark, editorial/gallery quality."
     ]:[
-      `Create a high-quality artistic illustration in ${sc||"an expressive style"}.`,
-      "",subj&&`Subject: ${subj}`,scene&&`Setting: ${scene}`,s.mood_emotion&&`Mood: ${s.mood_emotion}`,light&&`Lighting: ${light}`,atmLine&&`Atmosphere: ${atmLine}`,compLine,`Aspect ratio: ${s.aspect_ratio||"1:1"}`,
-      idLine&&`\nIdentity: ${idLine}`,techLine&&`Technical: ${techLine}`,
-      `\nStyle: ${styleStr||"expressive editorial illustration"}.`,colorLine,includeStr&&`\nInclude: ${includeStr}.`,no&&`Avoid: ${no}.`,
+      // 1. Scena e soggetto
+      subj&&`Subject: ${subj}.`,scene&&`Setting: ${scene}.`,
+      compLine,`Aspect ratio: ${s.aspect_ratio||"1:1"}`,
+      // 2. Mood e luce
+      s.mood_emotion&&`\nMood: ${s.mood_emotion}.`,light&&`Lighting: ${light}.`,atmLine&&`Atmosphere: ${atmLine}.`,
+      // 3. Stile e tecnica
+      `\nStyle: ${styleStr||"expressive editorial illustration"}.`,idLine&&`Identity: ${idLine}.`,techLine&&`Technical: ${techLine}.`,
+      // 4. Colore
+      colorLine,
+      // 5. Include / Avoid
+      includeStr&&`\nInclude: ${includeStr}.`,no&&`Avoid: ${no}.`,
       (t.abstraction||t.motion||t.asymmetrical)&&"\nAdditional directives:",
       t.abstraction&&"- Increase abstraction while preserving subject identity.",t.motion&&"- Add motion using directional ink strokes.",t.asymmetrical&&"- Use asymmetrical cinematic composition.",
+      // 6. Output
       s.free_style_notes&&`\nNote: ${s.free_style_notes}`,extras.length>0&&`\nFrom configuration:\n${extras.join("\n")}`,
-      "\nOutput: high-resolution, clean white background, no text, no watermark, editorial/gallery quality."
+      needsThink&&"\nReason through composition and spatial relationships before generating.",
+      "\nOutput: high-resolution, no text, no watermark, editorial/gallery quality."
     ];
     return lines.filter(l=>l!==false&&l!==null&&l!==undefined&&l!=="").join("\n");
   };
