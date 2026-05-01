@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prompt Builder v6.0.1</title>
+<title>Prompt Builder v9.0</title>
 <style>
 :root {
   --fs: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -36,7 +36,7 @@ h2{font-size:17px;font-weight:500;color:var(--tp);margin-bottom:2px}
 .tabs-bar{display:flex;margin-bottom:20px;border-bottom:0.5px solid var(--b3)}
 .tab-btn{padding:8px 20px;font-size:13px;border:none;background:none;cursor:pointer;color:var(--ts);border-bottom:2px solid transparent;margin-bottom:-0.5px;font-family:var(--fs)}
 .tab-btn.on{color:var(--tp);border-bottom-color:var(--tp);font-weight:500}
-.json-row{display:flex;gap:8px;margin-bottom:14px;align-items:flex-start}
+.json-row{display:flex;gap:8px;margin-bottom:10px;align-items:flex-start}
 .json-row textarea{flex:1;height:68px;font-family:var(--fm);font-size:11px;padding:8px 10px;border:0.5px solid var(--b2);border-radius:var(--r);background:var(--bs);color:var(--tp);resize:none;line-height:1.5}
 .json-row textarea:focus{outline:none;border-color:var(--b1)}
 .load-btn{padding:8px 14px;font-size:12px;border:0.5px solid var(--b2);border-radius:var(--r);background:var(--bp);color:var(--tp);cursor:pointer;white-space:nowrap;font-family:var(--fs);font-weight:500}
@@ -55,8 +55,6 @@ h2{font-size:17px;font-weight:500;color:var(--tp);margin-bottom:2px}
 .acc-title{font-size:13px;font-weight:500;color:var(--tp)}
 .acc-sub{font-size:11px;color:var(--tt);margin-top:1px}
 .badge{font-size:10px;padding:2px 7px;border-radius:10px;background:var(--info-bg);color:var(--info-tx);font-weight:500}
-.badge-v7{font-size:10px;padding:2px 7px;border-radius:var(--r);background:var(--info-bg);color:var(--info-tx);margin-left:8px}
-.badge-v8{font-size:10px;padding:2px 7px;border-radius:var(--r);background:var(--warn-bg);color:var(--warn-tx);margin-left:8px}
 .chev{font-size:10px;color:var(--tt);transition:transform .15s}
 .chev.open{transform:rotate(180deg)}
 .acc-b{padding:14px;border-top:0.5px solid var(--b3)}
@@ -97,6 +95,18 @@ h2{font-size:17px;font-weight:500;color:var(--tp);margin-bottom:2px}
 .sub-tab{padding:4px 10px;font-size:11px;border-radius:var(--r);cursor:pointer;background:transparent;border:0.5px solid var(--b3);color:var(--ts);font-family:var(--fs)}
 .sub-tab.on{background:var(--bs);border-color:var(--b1);color:var(--tp);font-weight:500}
 .mj-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.leo-cfg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px 14px;margin-bottom:12px;padding:12px 14px;background:var(--bs);border:0.5px solid var(--b3);border-radius:var(--r)}
+.leo-cfg-hd{grid-column:1/-1;display:flex;align-items:center;gap:8px;font-size:11px;font-weight:500;color:var(--tt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.leo-badge{font-size:10px;padding:2px 7px;border-radius:10px;background:#f0e6ff;color:#6d28d9;font-weight:500}
+@media (prefers-color-scheme:dark){.leo-badge{background:#2d1b4e;color:#c084fc}}
+.leo-ref-row{grid-column:1/-1;display:flex;flex-direction:column;gap:6px;border-top:0.5px solid var(--b3);padding-top:10px;margin-top:4px}
+.leo-ref-item{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+.instr-box{font-family:var(--fm);font-size:11px;color:var(--ts);padding:12px;background:var(--bs);border:0.5px solid var(--b3);border-radius:var(--r);white-space:pre-wrap;line-height:1.6;margin-top:10px;min-height:220px;overflow:auto}
+.out-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.out-label{font-size:11px;font-weight:500;color:var(--tt);text-transform:uppercase;letter-spacing:.06em}
+.copy-sm{padding:4px 12px;font-size:11px;border:0.5px solid var(--b2);border-radius:var(--r);background:var(--bp);color:var(--tp);cursor:pointer;font-family:var(--fs);font-weight:500}
+.copy-sm:hover{background:var(--bs)}
+.copy-sm.ok{background:var(--ok-bg);color:var(--ok-tx);border-color:var(--ok-tx)}
 .ver-note{font-size:11px;padding:8px 10px;border-radius:var(--r);background:var(--warn-bg);color:var(--warn-tx);margin-bottom:10px;line-height:1.5}
 .img-note{font-size:11px;padding:8px 10px;border-radius:var(--r);background:var(--info-bg);color:var(--info-tx);margin-bottom:10px;line-height:1.5}
 .dis-note{font-size:12px;color:var(--tt);padding:6px 0}
@@ -114,6 +124,22 @@ textarea.out{width:100%;font-family:var(--fm);font-size:12px;padding:12px;border
 .preset-bar{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;align-items:center}
 .free-notes{margin-top:12px;padding-top:12px;border-top:0.5px solid var(--b3)}
 .mj-note{font-size:11px;color:var(--tt);padding:8px 10px;background:var(--bs);border-radius:var(--r);margin-top:8px;line-height:1.5}
+/* ── v9.0 — API layer ─────────────────────────────── */
+.api-btn{padding:4px 10px;font-size:11px;border:0.5px solid var(--info-bd);border-radius:var(--r);background:var(--info-bg);color:var(--info-tx);cursor:pointer;font-family:var(--fs);font-weight:500;white-space:nowrap}
+.api-btn:hover{opacity:.85}
+.api-btn:disabled{opacity:.4;cursor:not-allowed}
+.api-btn-row{display:flex;justify-content:flex-end;margin-top:10px;padding-top:10px;border-top:0.5px solid var(--b3)}
+.api-key-bar{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding:7px 10px;background:var(--bs);border-radius:var(--r);border:0.5px solid var(--b3);font-size:11px;color:var(--ts)}
+.api-key-bar input{flex:1;font-family:var(--fm);font-size:11px;color:var(--tp);background:var(--bp);border:0.5px solid var(--b2);border-radius:var(--r);padding:4px 8px}
+.api-key-bar input:focus{outline:none;border-color:var(--b1)}
+.api-key-dot{width:6px;height:6px;border-radius:50%;background:var(--ok-tx);flex-shrink:0}
+.api-key-dot.off{background:var(--warn-tx)}
+.api-err{font-size:11px;color:var(--warn-tx);padding:6px 8px;background:var(--warn-bg);border-radius:var(--r);margin-bottom:8px;line-height:1.5}
+.orig-input-row{margin-bottom:10px}
+.opt-prompt{margin-top:12px;border:0.5px solid var(--info-bd);border-radius:var(--r);overflow:hidden}
+.opt-prompt-hd{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--info-bg);border-bottom:0.5px solid var(--info-bd)}
+.opt-prompt-lbl{font-size:11px;font-weight:500;color:var(--info-tx);text-transform:uppercase;letter-spacing:.06em}
+.stale-hint{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--warn-tx);margin-top:4px;font-style:italic}
 </style>
 </head>
 <body>
@@ -124,9 +150,153 @@ textarea.out{width:100%;font-family:var(--fm);font-size:12px;padding:12px;border
 const {useState,useCallback,createElement:h}=React;
 
 // ─── Constants ───────────────────────────────────────────────────────────────
-const V="6.0";
+const V="9.04";
+
+const GENRES=[
+  {value:"portrait",label:"Personaggio / Ritratto",prefix:"portrait of"},
+  {value:"stilllife",label:"Still-life",prefix:"still life of"},
+  {value:"landscape",label:"Paesaggio",prefix:"landscape photograph of"},
+  {value:"urban",label:"Urban / Street",prefix:"street photograph of"},
+  {value:"interior",label:"Interni",prefix:"interior photograph of"},
+  {value:"architecture",label:"Architettura",prefix:""},
+  {value:"other",label:"Altro / Libero",prefix:""},
+];
+
+const GREYED_FIELDS={
+  portrait:[],
+  stilllife:["subject_action","costume"],
+  landscape:["subject_action","costume"],
+  urban:[],
+  interior:["subject_action","costume"],
+  architecture:["subject_action","costume"],
+  other:[],
+};
+
 const MJ_TASK_FB="expressive ink sketch watercolor editorial illustration";
 const NO_DEFAULT="text, watermark, logo, symmetry, perfect edges, photorealistic skin texture, 3D rendering, CGI";
+const LS_API_KEY="pb_api_key_v1";
+
+// Campi sorgente di core_style — quando uno di questi cambia, core_style è potenzialmente stale
+const CORE_STYLE_DEPS=["genre_primary","genre_modifiers","aesthetic_vibe","art_movement","era_period",
+  "artist_reference","medium_technique","medium_render_style","surface_quality","line_quality_style",
+  "elements_to_add","elements_to_avoid","line_quality"];
+
+// ─── System prompts API — Layer 2 ────────────────────────────────────────────
+const SYSTEM_LUCE=`Sei uno specialista in illuminazione fotografica e artistica per AI image generation.
+
+Ricevi un JSON con i campi luce di una scena. Il tuo compito è eliminare le sovrapposizioni tra lighting_direction e lighting_setup producendo una descrizione coerente del sistema di illuminazione.
+
+DEFINIZIONI:
+- lighting_direction: DA DOVE viene la luce — posizione spaziale pura ("from the left", "overhead", "backlight")
+- lighting_setup: COME è costruita tecnicamente — nome della tecnica o descrizione delle sorgenti ("Rembrandt lighting", "chiaroscuro", "desk lamp + window light")
+- lighting_quality: CHE CARATTERE ha la luce — ("soft", "hard", "diffused")
+- time_lighting: NON modificarlo — descrive il contesto temporale/atmosferico, non l'illuminazione tecnica
+
+REGOLE DI FUSIONE:
+1. Se lighting_direction e lighting_setup si sovrappongono (stessa informazione in entrambi): metti la tecnica nominata in lighting_setup, la direzione spaziale pura in lighting_direction. Se la direzione è già implicita nel nome del setup (es. "overhead" implica "from above"), svuota lighting_direction.
+2. Se lighting_setup descrive più sorgenti (contiene "+", ":", " and ", o più di 5 parole che descrivono sorgenti multiple): trattalo come descrizione multi-sorgente. Aggiungi lighting_direction solo se aggiunge informazione non già presente.
+3. Se i campi sono già coerenti e non si sovrappongono: restituiscili invariati.
+4. Se original_input è presente e non vuoto: usalo per disambiguare il sistema di illuminazione quando i campi strutturati sono ambigui. Non aggiungere elementi non presenti nei campi luce.
+
+LINGUA: output sempre in inglese.
+
+FORMATO OUTPUT — REGOLA ASSOLUTA:
+Rispondi SOLO con JSON valido. Nessun testo prima o dopo, nessuna spiegazione, nessun blocco markdown.
+Schema obbligatorio:
+{"lighting_direction":"...","lighting_setup":"...","lighting_quality":"..."}`;
+
+const SYSTEM_STILE=`Sei un esperto di storia dell'arte, fotografia, illustrazione e stile visivo per AI image generation (Midjourney, Stable Diffusion, Flux).
+
+Ricevi un JSON con i campi TECNICA (flat, senza sezioni annidate), un subset di SETTING come contesto, e il testo originale dell'utente.
+
+Il tuo compito:
+1. Completa i campi vuoti se l'informazione è inferibile dallo stile o dal testo originale
+2. Correggi incongruenze stilistiche tra i campi
+3. Arricchisci artist_reference se lo stile evoca chiaramente artisti o autori noti — anche se non citati
+4. Ricalcola core_style come sintesi coerente di tutti i campi TECNICA — SEMPRE per ultimo, dopo aver ottimizzato tutto il resto
+5. Aggiorna elements_to_add e elements_to_avoid in coerenza con lo stile risultante
+6. Non modificare ciò che è già coerente e completo
+
+TESTO ORIGINALE — FONTE PRIMARIA DI INFERENZA:
+Se original_input è presente e non vuoto, leggilo per primo. Identifica segnali stilistici impliciti non catturati nel JSON strutturato (riferimenti culturali, atmosfera, aggettivi con valenza visiva precisa, materiali citati en passant). Usali per completare i campi vuoti. I campi strutturati sono il punto di partenza; il testo originale è la bussola per l'inferenza.
+
+INFERENZA ARTIST_REFERENCE — PROCEDURA OBBLIGATORIA:
+
+STEP 1 — Identifica il dominio tecnico primario da genre_primary e medium_technique:
+photography | painting | illustration | ink_drawing | manga_anime | concept_art | graphic_design | other
+
+STEP 2 — Costruisci il profilo dell'immagine sugli assi rilevanti per il dominio:
+- photography: medium (B&W/colore/film/digitale), approccio (geometrico/istintivo/frontale), registro emotivo, qualità luce dominante, contesto geografico/culturale
+- painting: tecnica di pennellata, trattamento luce (chiaroscuro/diffusa/piatta/espressionista), figurativo vs astratto, tradizione geografica, registro (intimista/monumentale/narrativo)
+- illustration: stile del segno (pulito/texture/sintetico/dettagliato), registro destinazione (bambini/adulti/editoriale/fantasy), medium simulato, peso colore
+- ink_drawing: qualità del segno (fluido/spezzato/geometrico), rapporto nero/bianco, grado di sintesi
+- manga_anime: scuola demografica (shonen/seinen/shojo/josei), era stilistica, registro narrativo, studio/autore se riconoscibile
+- concept_art: finalità (videogioco/film/architettura/world-building), registro (realistico/stilizzato/painterly)
+
+STEP 3 — Per ogni artista/autore considerato: verifica match su ALMENO 3-4 degli assi identificati. Match su 1-2 assi → scarta o metti in dubbio.
+
+STEP 4 — Cerca il secondo e terzo livello di riferimento. Il riferimento più preciso è spesso meno ovvio del nome più famoso per il genere.
+
+STEP 5 — Per stili ibridi o cross-domain: identifica il dominio dominante per l'inferenza principale. Non forzare riferimenti cross-domain se non chiaramente supportati dai dati.
+
+REGOLA CORE_STYLE:
+core_style è la sintesi dell'intera sezione TECNICA. Deve catturare il genre, la tecnica dominante, l'estetica e il mood visivo in 3-6 token separati da virgola. Ricalcolalo per ULTIMO, dopo aver ottimizzato tutti gli altri campi.
+
+LINGUA: output sempre in inglese. Valori stringa vuoti come "", array vuoti come [].
+
+FORMATO OUTPUT — REGOLA ASSOLUTA:
+Rispondi SOLO con JSON valido contenente TUTTI i campi nello schema seguente. Nessun testo, nessuna spiegazione, nessun blocco markdown. Includi tutti i campi anche se invariati.
+
+Schema obbligatorio (flat):
+{"genre_primary":"","genre_modifiers":[],"aesthetic_vibe":"","artist_reference":[],"art_movement":"","era_period":"","medium_technique":"","medium_render_style":"","surface_quality":"","line_quality_style":"","rendering_engine":"","paper_texture":"","grain_texture":"","vignette":"","contrast_level":"","toning":"","accent_color":"","secondary_accent":"","color_temperature":"","color_palette_style":"","saturation_level":"","detail_level":"","abstraction":false,"motion":false,"asymmetrical":false,"core_style":[],"line_quality":[],"elements_to_add":[],"elements_to_avoid":[]}`;
+
+const SYSTEM_PROMPT_OPT=`Sei un esperto di prompt engineering per AI image generation (Midjourney, gpt-image-2, Stable Diffusion, Nano Banana).
+
+Ricevi un prompt già strutturato generato meccanicamente da uno schema JSON, la piattaforma target, e opzionalmente il testo originale dell'utente.
+
+Il tuo compito è ottimizzare il prompt per massimizzare la qualità dell'immagine generata.
+
+OPERAZIONI CONSENTITE:
+- Eliminare ridondanze semantiche (stessa informazione espressa due volte con parole diverse)
+- Riordinare token se un ordine diverso aumenta il peso semantico per la piattaforma target
+- Condensare frasi verbose in token più efficaci per il generatore
+- Correggere incongruenze visive (es. illuminazione incompatibile con il genere dichiarato)
+- Adattare il vocabolario e la struttura al registro della piattaforma target
+
+OPERAZIONI VIETATE:
+- Aggiungere elementi visivi non presenti nell'input
+- Cambiare il soggetto, l'azione o la scena
+- Modificare i parametri tecnici MJ (--ar, --v, --chaos, --stylize, --weird, ecc.) — passali invariati alla fine
+- Superare le 120 parole nel corpo del prompt (esclusi parametri e note di configurazione)
+
+REGOLE PIATTAFORMA-SPECIFICHE:
+
+Se platform è "chatgpt" (gpt-image-2):
+- Il modello è reasoning-aware: legge linguaggio naturale descrittivo, NON keyword spam in stile Midjourney.
+- Converti i blocchi semicolon-chain ("Genre: X; Aesthetic: Y; Art movement: Z") in frasi brevi ma complete ("A noir-influenced illustration in Art Nouveau style, evoking the aesthetic of dark academia.").
+- RIMUOVI tutti i quality descriptor generici: high-resolution, ultra-detailed, editorial quality, award-winning, masterpiece, stunning. Non hanno effetto — la qualità si controlla via parametri API.
+- Preserva e rafforza la sezione Constraints: — è la parte più importante per limitare il drift del modello.
+- Se manca la riga "Use case:", aggiungila se inferibile (editorial photograph / product mockup / editorial illustration / concept art frame / fine art painting).
+- Rimuovi eventuali istruzioni "Reason through..." — gpt-image-2 ha reasoning integrato.
+- ARTISTI — regola critica e contestuale: la sezione "Reference artists" contiene nomi di artisti usati come riferimento stilistico. Procedi così:
+  1. Per ogni nome nella sezione, valuta se è un artista vivente o un'IP protetta che potrebbe causare blocco del modello.
+  2. Se sì: NON rimuovere il riferimento — traducilo in 1-3 descrittori visivi specifici e contestualizzati rispetto al soggetto, alla scena e al mood del prompt che stai ottimizzando. Non usare descrittori generici: sfrutta il contesto per calibrare (es. stesso artista in un prompt di danza vs. un ritratto ambientale produce descrittori diversi).
+  3. Se no (maestro deceduto: Vermeer, Rembrandt, Cartier-Bresson, Avedon, Irving Penn, Man Ray, Dorothea Lange, Ansel Adams, Diane Arbus ecc.): lascia il nome invariato — gpt-image-2 lo accetta come riferimento culturale/storico.
+  4. Integra i descrittori tradotti nel flusso della frase più appropriata del prompt — non tenerli isolati come lista. L'obiettivo è che lo stile dell'artista permei il testo in modo naturale, non che appaia come un'etichetta sostituita.
+
+Se platform è "midjourney":
+- Mantieni struttura token-flow separati da virgola. Efficacia = densità semantica per token.
+- Passa i parametri --ar, --v ecc. invariati alla fine del prompt.
+- Keyword stacking è appropriato per MJ — non convertire in prosa.
+
+Se platform è "nanobanana":
+- Linguaggio naturale fluente, struttura a paragrafo, rimuovi ridondanze. Nessun parametro tecnico.
+
+TESTO ORIGINALE — VERIFICA DI FEDELTÀ:
+Se original_input è presente e non vuoto, usalo come criterio arbitrale finale: quando due versioni del prompt sono ugualmente efficaci per il generatore, scegli quella più fedele all'intenzione originale dell'utente. Se il prompt si è allontanato dall'intenzione originale per effetto di ridondanza stilistica, correggilo in direzione dell'originale.
+
+FORMATO OUTPUT — REGOLA ASSOLUTA:
+Rispondi SOLO con il prompt ottimizzato come testo puro, pronto da copiare nel generatore. Nessuna spiegazione, nessun commento, nessuna intestazione. I parametri MJ (--ar, --v, ecc.) vanno mantenuti alla fine separati dal corpo da uno spazio.`;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 const sp=s=>s?s.split("|")[0].trim():s;
@@ -134,6 +304,32 @@ const dedup=arr=>{const seen=new Set();return arr.filter(item=>{const k=item.toL
 const deepEq=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const isEmpty=v=>v===""||v===false||(Array.isArray(v)&&v.length===0);
 const cap=s=>s?s.charAt(0).toUpperCase()+s.slice(1):"";
+
+// ─── v9.0 — Fusione algoritmica blocco luce ──────────────────────────────────
+// dir: lighting_direction, setup: lighting_setup, quality: lighting_quality
+// Produce una stringa coerente per il prompt (Layer 1)
+const buildLightBlock=(dir,setup,quality)=>{
+  const wc=s=>s?s.trim().split(/\s+/).length:0;
+  // Rileva setup multi-sorgente: più sorgenti descritte in un campo unico
+  const isMulti=setup&&(/[+:]/.test(setup)||/\band\b/.test(setup)||wc(setup)>5);
+  let base="";
+  if(setup&&dir){
+    if(isMulti){
+      // Multi-sorgente: aggiungi dir solo se non già contenuto (check letterale)
+      base=setup.toLowerCase().includes(dir.toLowerCase())?setup:setup+", "+dir;
+    }else{
+      // Sorgente singola: merge con overlap check
+      const sl=setup.toLowerCase(),dl=dir.toLowerCase();
+      if(dl===sl||sl.includes(dl))base=setup;
+      else if(dl.includes(sl))base=dir;
+      else base=setup+", "+dir;
+    }
+  }else if(setup){base=setup;}
+  else if(dir){base=dir;}
+  if(!base)return quality||"";
+  if(!quality)return base;
+  return wc(quality)<=2?quality+" "+base:base+", "+quality;
+};
 
 // ─── Default values ───────────────────────────────────────────────────────────
 const DF_S={
@@ -168,6 +364,8 @@ const lsGetChars=()=>lsRead(LS_CH); const lsSetChars=v=>lsWrite(LS_CH,v);
 const PRESET_S_FIELDS=Object.keys(DF_S);
 const PRESET_T_FIELDS=Object.keys(DF_T);
 const PRESET_MJ_F=["version","style","quality","stylize","chaos","weird","sref","sw","moodboard"];
+const LEO_DF={model:"lucid_realism",quality_mode:"Fast",contrast:""};
+const PRESET_LEO_F=["model","quality_mode","contrast"];
 
 // ─── Characters ──────────────────────────────────────────────────────────────
 const CHAR_DF={name:"",series:"",gender:"",ethnicity:"",age_apparent:"",height:"",build:"",face_structure:"",features:"",nose:"",hair_color:"",hair_length:"",hair_form:"",hairstyle:"",beard:"",eye_color:"",eye_shape:"",skin:"",mouth_lips:"",distinctive_traits:"",expression:"",posture:"",avoid:"",cref_url:"",cw_default:"85",notes:""};
@@ -216,7 +414,6 @@ const DL={
 };
 
 // ─── Components ───────────────────────────────────────────────────────────────
-
 const Tip=({text})=>{
   const[show,setShow]=useState(false);
   const[pos,setPos]=useState({top:0,left:0});
@@ -248,6 +445,12 @@ const TF=({label,fkey,val,onChange,onRst,st,ph,opt,tip})=>
     h("input",{className:`inp${st==="agent"?" a":st==="modified"?" m":""}`,type:"text",value:val,placeholder:ph,onChange:e=>onChange(fkey,e.target.value)})
   );
 
+const TAF=({label,fkey,val,onChange,onRst,st,ph,opt,tip,rows})=>
+  h("div",{className:"fld fw"},
+    h(Lbl,{label,opt,st,onRst,tip}),
+    h("textarea",{className:`inp${st==="agent"?" a":st==="modified"?" m":""}`,value:val,placeholder:ph,rows:rows||5,style:{resize:"vertical",lineHeight:"1.5"},onChange:e=>onChange(fkey,e.target.value)})
+  );
+
 const TFD=({label,fkey,val,onChange,onRst,st,ph,opt,dl,tip})=>{
   const id=`dl_${fkey}`;
   return h("div",{className:"fld"},
@@ -270,6 +473,15 @@ const MS=({label,val,onChange,opts})=>
     h("label",{className:"lbl"},label),
     h("select",{className:"inp",value:val,onChange},opts.map(([v,l])=>h("option",{key:v,value:v},l||v)))
   );
+
+const MVD=({label,val,onChange,opts})=>{
+  const id="dl_mj_version";
+  return h("div",{className:"fld"},
+    h("label",{className:"lbl"},label),
+    h("input",{className:"inp",type:"text",value:val,list:id,onChange,placeholder:"es. 6.1, 8.0…"}),
+    h("datalist",{id},opts.map(([v])=>h("option",{key:v,value:v})))
+  );
+};
 
 const MN=({label,val,onChange,min,max,step,ph})=>
   h("div",{className:"fld"},
@@ -345,15 +557,17 @@ const Legend=()=>h("div",{className:"legend"},
   h("div",{className:"leg-item"},h("span",{className:"dot dot-m"}),"modificato"),
   h("div",{className:"leg-item"},h("span",{className:"dot dot-d"}),"default")
 );
+
 // ─── APP — state + logic ─────────────────────────────────────────────────────
 function App(){
   // Field states
   const[setting,setSetting]=useState({...DF_S});
   const[tecnica,setTecnica]=useState({...DF_T});
-  // Snap states (agent-loaded values)
+  // Snap states
   const[snapS,setSnapS]=useState({});
   const[snapT,setSnapT]=useState({});
   // UI
+  const[sceneGenre,setSceneGenre]=useState("portrait");
   const[jsonIn,setJsonIn]=useState("");
   const[err,setErr]=useState("");
   const[tab,setTab]=useState("setting");
@@ -367,6 +581,9 @@ function App(){
   const[openCh,setOpenCh]=useState({arch:true,fis:true,exp:true,ref:true});
   // MJ session state
   const[mj,setMj]=useState({version:"6.1",style:"raw",quality:"1",chaos:"",stylize:"",weird:"",seed:"",tile:false,hd:false,exp:false,sv:"7",sref:"",sw:"",moodboard:"",cref:"",cw:"",iw:"",personalize:"",no_extra:"",useNo:true});
+  // Leonardo AI state
+  const[leo,setLeo]=useState({...LEO_DF});
+  const[copiedInstr,setCopiedInstr]=useState(false);
   // Setting presets
   const[sPresets,setSPresets]=useState(()=>lsGetSP());
   const[sPresetName,setSPresetName]=useState("");
@@ -385,6 +602,15 @@ function App(){
   const[loadedCharDesc,setLoadedCharDesc]=useState("");
   const[loadedCharNotes,setLoadedCharNotes]=useState("");
   const importCharsRef=React.useRef(null);
+
+  // ── v9.0 — nuovo state ────────────────────────────────────────────────────
+  const[originalInput,setOriginalInput]=useState("");
+  const[apiKey,setApiKey]=useState(()=>localStorage.getItem(LS_API_KEY)||"");
+  const[showApiKey,setShowApiKey]=useState(false);
+  const[apiLoading,setApiLoading]=useState({luce:false,stile:false,prompt:false});
+  const[apiError,setApiError]=useState("");
+  const[apiOptimizedPrompt,setApiOptimizedPrompt]=useState("");
+  const[copiedOpt,setCopiedOpt]=useState(false);
 
   // ── Field helpers ─────────────────────────────────────────────────────────
   const fsS=k=>{if(snapS[k]===undefined)return"default";return deepEq(setting[k],snapS[k])?"agent":"modified";};
@@ -405,23 +631,27 @@ function App(){
   const fpT=(k,opt)=>({fkey:k,val:tecnica[k],onChange:setT,onRst:()=>rstT(k),st:fsT(k),opt});
   const showFoto=tecnica.genre_primary==="photography"||["lens_focal","aperture","camera_model","film_stock","depth_of_field"].some(k=>tecnica[k]);
 
+  // core_style è stale se uno dei campi-fonte è stato modificato dopo l'ultimo snap
+  const coreStyleStale=Object.keys(snapT).length>0&&
+    CORE_STYLE_DEPS.some(k=>snapT[k]!==undefined&&!deepEq(tecnica[k],snapT[k]));
+
+  // ── API key ───────────────────────────────────────────────────────────────
+  const saveApiKey=v=>{setApiKey(v);try{localStorage.setItem(LS_API_KEY,v);}catch(e){}};
+
   // ── JSON Loader ───────────────────────────────────────────────────────────
   const loadJSON=mode=>{
     setErr("");
     let raw=jsonIn.trim().replace(/^```json\s*/i,"").replace(/\s*```$/,"");
     try{
       const p=JSON.parse(raw);
-      // Extractor: handles both {value:"..."} wrapper and plain values
       const ex=(o,...path)=>{
         let c=o;
         for(const k of path){if(!c||typeof c!=="object")return undefined;c=c[k];}
         return(c&&typeof c==="object"&&"value"in c)?c.value:c;
       };
-
-      // ── SETTING ──
       if(mode==="all"||mode==="setting"){
         const src=p.SETTING||{};
-        const ns={...DF_S}, ss={};
+        const ns={...DF_S},ss={};
         const apS=(jk,fk=jk)=>{const v=ex(src,jk);if(v!==undefined&&v!==null&&v!==""){ns[fk]=v;ss[fk]=v;}};
         const apA=(jk,fk=jk)=>{const v=ex(src,jk);if(Array.isArray(v)&&v.length>0){ns[fk]=v;ss[fk]=[...v];}};
         ["main_subject","subject_action","scene_environment","mood_emotion","narrative_context",
@@ -429,85 +659,59 @@ function App(){
          "lighting_quality","composition_style","shooting_angle","aspect_ratio","free_style_notes"
         ].forEach(k=>apS(k));
         apA("props");
-        setSetting(ns);
-        setSnapS(ss);
+        setSetting(ns);setSnapS(ss);
       }
-
-      // ── TECNICA ──
       if(mode==="all"||mode==="tecnica"){
         const tec=p.TECNICA||{};
-        const nt={...DF_T}, st={};
+        const nt={...DF_T},st={};
         const apT=(src,jk,fk=jk)=>{const v=ex(src,jk);if(v!==undefined&&v!==null&&v!==""){nt[fk]=v;st[fk]=v;}};
         const apAT=(src,jk,fk=jk)=>{const v=ex(src,jk);if(Array.isArray(v)&&v.length>0){nt[fk]=v;st[fk]=[...v];}};
         const apBT=(src,jk,fk=jk)=>{const v=ex(src,jk);if(v===true){nt[fk]=true;st[fk]=true;}};
-
         const id=tec.IDENTITY||{};
         ["genre_primary","aesthetic_vibe","art_movement","era_period"].forEach(k=>apT(id,k));
-        apAT(id,"genre_modifiers"); apAT(id,"artist_reference");
-
+        apAT(id,"genre_modifiers");apAT(id,"artist_reference");
         const med=tec.MEDIUM||{};
         ["medium_technique","medium_render_style","surface_quality","line_quality_style","rendering_engine","paper_texture"].forEach(k=>apT(med,k));
-
         const ph=tec.PHOTOGRAPHY||{};
         ["lens_focal","aperture","camera_model","film_stock","depth_of_field"].forEach(k=>apT(ph,k));
-
         const col=tec.COLOR||{};
         ["accent_color","secondary_accent","color_temperature","color_palette_style","saturation_level"].forEach(k=>apT(col,k));
-
         const atm=tec.ATMOSPHERE||{};
         ["grain_texture","vignette","contrast_level","toning"].forEach(k=>apT(atm,k));
-
         const comp=tec.COMPOSITION||{};
         apT(comp,"detail_level");
-
         const enh=tec.ENHANCERS||{};
         ["abstraction","motion","asymmetrical"].forEach(k=>apBT(enh,k));
-
         const sc=tec.STYLE_CORE||{};
         ["core_style","line_quality","elements_to_add","elements_to_avoid"].forEach(k=>apAT(sc,k));
         apT(sc,"final_instruction");
-
-        setTecnica(nt);
-        setSnapT(st);
-
-        // MJ defaults only on full load
+        setTecnica(nt);setSnapT(st);
         if(mode==="all"){
           const mjd=tec.MJ_DEFAULTS||{};
           const mv=ex(mjd,"version"),ms=ex(mjd,"style"),mq=ex(mjd,"quality"),
                 mst=ex(mjd,"stylize"),mch=ex(mjd,"chaos"),mw=ex(mjd,"weird");
-          setMj(prev=>({...prev,
-            ...(mv?{version:mv}:{}),
-            ...(ms!==undefined&&ms!==null?{style:ms}:{}),
-            ...(mq?{quality:String(mq)}:{}),
-            ...(mst?{stylize:String(mst)}:{}),
-            ...(mch?{chaos:String(mch)}:{}),
-            ...(mw?{weird:String(mw)}:{})
-          }));
+          setMj(prev=>({...prev,...(mv?{version:mv}:{}),...(ms!==undefined&&ms!==null?{style:ms}:{}),...(mq?{quality:String(mq)}:{}),...(mst?{stylize:String(mst)}:{}),...(mch?{chaos:String(mch)}:{}),...(mw?{weird:String(mw)}:{})}));
         }
-
-        // Auto-open accordions that received content
         const hasId=["genre_primary","aesthetic_vibe","art_movement","era_period"].some(k=>st[k])||(st.artist_reference&&st.artist_reference.length>0);
         const hasMed=["medium_technique","medium_render_style"].some(k=>st[k]);
         const hasFoto=["lens_focal","aperture","camera_model","film_stock","depth_of_field"].some(k=>st[k]);
         const hasCol=["accent_color","secondary_accent","color_palette_style","color_temperature"].some(k=>st[k]);
         const hasAtm=["grain_texture","contrast_level","toning"].some(k=>st[k]);
         const hasSc=(st.core_style&&st.core_style.length>0)||(st.elements_to_add&&st.elements_to_add.length>0);
-        setOpenT(prev=>({...prev,
-          id:hasId||prev.id, med:hasMed||prev.med, foto:hasFoto,
-          col:hasCol||prev.col, atm:hasAtm||prev.atm, sc:hasSc||prev.sc
-        }));
+        setOpenT(prev=>({...prev,id:hasId||prev.id,med:hasMed||prev.med,foto:hasFoto,col:hasCol||prev.col,atm:hasAtm||prev.atm,sc:hasSc||prev.sc}));
       }
-
+      // Reset ottimizzato quando si carica nuovo JSON
+      setApiOptimizedPrompt("");
     }catch(e){setErr("JSON non valido: "+e.message);}
   };
 
   // ── Nuova scena ───────────────────────────────────────────────────────────
-  const clearScene=()=>{setSetting({...DF_S});setLoadedCharDesc("");setLoadedCharNotes("");setSnapS({});};
+  const clearScene=()=>{setSetting({...DF_S});setLoadedCharDesc("");setLoadedCharNotes("");setSnapS({});setSceneGenre("portrait");setApiOptimizedPrompt("");};
 
   // ── Setting presets ───────────────────────────────────────────────────────
   const saveSP=()=>{
     const name=sPresetName.trim();if(!name)return;
-    const fields={};PRESET_S_FIELDS.forEach(k=>{fields[k]=setting[k];});
+    const fields={};PRESET_S_FIELDS.forEach(k=>{fields[k]=setting[k];});fields.sceneGenre=sceneGenre;
     const entry={name,savedAt:new Date().toLocaleDateString("it-IT"),fields};
     const updated=[...sPresets.filter(p=>p.name!==name),entry];
     setSPresets(updated);lsSetSP(updated);setSPresetName("");
@@ -517,6 +721,7 @@ function App(){
     const ns={...setting},ss={};
     PRESET_S_FIELDS.forEach(k=>{if(p.fields[k]!==undefined){ns[k]=p.fields[k];ss[k]=p.fields[k];}});
     setSetting(ns);setSnapS(prev=>({...prev,...ss}));
+    if(p.fields.sceneGenre!==undefined)setSceneGenre(p.fields.sceneGenre);
   };
   const deleteSP=()=>{const u=sPresets.filter(p=>p.name!==selectedSP);setSPresets(u);lsSetSP(u);setSelectedSP("");};
   const exportSP=async()=>{
@@ -524,8 +729,7 @@ function App(){
     const toExp=selectedSP?sPresets.filter(p=>p.name===selectedSP):sPresets;
     const n=(selectedSP||"pb_setting_presets").replace(/[^a-z0-9_\-\.]/gi,"_");
     const blob=new Blob([JSON.stringify(toExp,null,2)],{type:"application/json"});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement("a");a.href=url;a.download=n+".json";a.click();URL.revokeObjectURL(url);
+    const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=n+".json";a.click();URL.revokeObjectURL(url);
   };
   const importSP=e=>{
     const file=e.target.files[0];if(!file)return;
@@ -539,7 +743,8 @@ function App(){
     const name=tPresetName.trim();if(!name)return;
     const fields={};PRESET_T_FIELDS.forEach(k=>{fields[k]=tecnica[k];});
     const mjFields={};PRESET_MJ_F.forEach(k=>{mjFields[k]=mj[k];});
-    const entry={name,savedAt:new Date().toLocaleDateString("it-IT"),fields,mj:mjFields};
+    const leoFields={};PRESET_LEO_F.forEach(k=>{leoFields[k]=leo[k];});
+    const entry={name,savedAt:new Date().toLocaleDateString("it-IT"),fields,mj:mjFields,leo:leoFields};
     const updated=[...tPresets.filter(p=>p.name!==name),entry];
     setTPresets(updated);lsSetTP(updated);setTPresetName("");
   };
@@ -549,6 +754,7 @@ function App(){
     PRESET_T_FIELDS.forEach(k=>{if(p.fields[k]!==undefined){nt[k]=p.fields[k];st[k]=p.fields[k];}});
     setTecnica(nt);setSnapT(prev=>({...prev,...st}));
     if(p.mj)setMj(prev=>({...prev,...p.mj}));
+    if(p.leo)setLeo(prev=>({...prev,...p.leo}));
     const hasCol=["accent_color","secondary_accent","color_palette_style"].some(k=>st[k]);
     const hasId=["genre_primary","aesthetic_vibe","art_movement","era_period"].some(k=>st[k]);
     const hasSc=st.core_style&&st.core_style.length>0;
@@ -561,8 +767,7 @@ function App(){
     const toExp=selectedTP?tPresets.filter(p=>p.name===selectedTP):tPresets;
     const n=(selectedTP||"pb_tecnica_presets").replace(/[^a-z0-9_\-\.]/gi,"_");
     const blob=new Blob([JSON.stringify(toExp,null,2)],{type:"application/json"});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement("a");a.href=url;a.download=n+".json";a.click();URL.revokeObjectURL(url);
+    const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=n+".json";a.click();URL.revokeObjectURL(url);
   };
   const importTP=e=>{
     const file=e.target.files[0];if(!file)return;
@@ -616,8 +821,7 @@ function App(){
     if(!toExp.length)return;
     const n=(selectedChar||"pb_characters").replace(/[^a-z0-9_\-\.]/gi,"_");
     const blob=new Blob([JSON.stringify(toExp,null,2)],{type:"application/json"});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement("a");a.href=url;a.download=n+".json";a.click();URL.revokeObjectURL(url);
+    const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=n+".json";a.click();URL.revokeObjectURL(url);
   };
   const importChars=e=>{
     const file=e.target.files[0];if(!file)return;
@@ -626,147 +830,243 @@ function App(){
     reader.readAsText(file);
   };
 
+  // ── v9.0 — Chiamate API Layer 2 ───────────────────────────────────────────
+  const apiHeaders=key=>({
+    "Content-Type":"application/json",
+    "x-api-key":key,
+    "anthropic-version":"2023-06-01",
+    "anthropic-dangerous-direct-browser-access":"true"
+  });
 
-// [continua nel prossimo step]
+  const callApiLuce=async()=>{
+    if(!apiKey){setApiError("API key non configurata — clicca su ⚙ API Key per inserirla.");return;}
+    setApiLoading(p=>({...p,luce:true}));setApiError("");
+    try{
+      const input={
+        time_lighting:setting.time_lighting,
+        lighting_direction:setting.lighting_direction,
+        lighting_setup:setting.lighting_setup,
+        lighting_quality:setting.lighting_quality,
+        genre_primary:tecnica.genre_primary,
+        original_input:originalInput
+      };
+      const res=await fetch("https://api.anthropic.com/v1/messages",{
+        method:"POST",headers:apiHeaders(apiKey),
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:300,system:SYSTEM_LUCE,messages:[{role:"user",content:JSON.stringify(input)}]})
+      });
+      const data=await res.json();
+      if(data.error)throw new Error(data.error.message);
+      const text=data.content[0]?.text||"";
+      const result=JSON.parse(text.replace(/```json\s*/g,"").replace(/```/g,"").trim());
+      const newSnap={};
+      ["lighting_direction","lighting_setup","lighting_quality"].forEach(k=>{
+        if(result[k]!==undefined){setS(k,result[k]);newSnap[k]=result[k];}
+      });
+      setSnapS(p=>({...p,...newSnap}));
+    }catch(e){setApiError("Ottimizza Luce — "+e.message);}
+    finally{setApiLoading(p=>({...p,luce:false}));}
+  };
+
+  const callApiStile=async()=>{
+    if(!apiKey){setApiError("API key non configurata — clicca su ⚙ API Key per inserirla.");return;}
+    setApiLoading(p=>({...p,stile:true}));setApiError("");
+    try{
+      const tecInput={};
+      Object.keys(DF_T).filter(k=>k!=="final_instruction").forEach(k=>{tecInput[k]=tecnica[k];});
+      const input={
+        ...tecInput,
+        _setting_context:{
+          main_subject:setting.main_subject,
+          scene_environment:setting.scene_environment,
+          mood_emotion:setting.mood_emotion,
+          props:setting.props,
+          time_lighting:setting.time_lighting,
+          costume:setting.costume
+        },
+        original_input:originalInput
+      };
+      const res=await fetch("https://api.anthropic.com/v1/messages",{
+        method:"POST",headers:apiHeaders(apiKey),
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1200,system:SYSTEM_STILE,messages:[{role:"user",content:JSON.stringify(input)}]})
+      });
+      const data=await res.json();
+      if(data.error)throw new Error(data.error.message);
+      const text=data.content[0]?.text||"";
+      const result=JSON.parse(text.replace(/```json\s*/g,"").replace(/```/g,"").trim());
+      const newSnap={};
+      Object.entries(result).forEach(([k,v])=>{
+        if(k in DF_T&&k!=="final_instruction"){setT(k,v);newSnap[k]=v;}
+      });
+      setSnapT(p=>({...p,...newSnap}));
+      // Apri Stile Core se core_style è stato aggiornato
+      if(result.core_style&&result.core_style.length>0)setOpenT(p=>({...p,sc:true}));
+    }catch(e){setApiError("Ottimizza Stile — "+e.message);}
+    finally{setApiLoading(p=>({...p,stile:false}));}
+  };
+
+  const callApiPrompt=async(currentOutput)=>{
+    if(!apiKey){setApiError("API key non configurata — clicca su ⚙ API Key per inserirla.");return;}
+    setApiLoading(p=>({...p,prompt:true}));setApiError("");
+    try{
+      const input={prompt:currentOutput,platform:fmt,original_input:originalInput};
+      const res=await fetch("https://api.anthropic.com/v1/messages",{
+        method:"POST",headers:apiHeaders(apiKey),
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:600,system:SYSTEM_PROMPT_OPT,messages:[{role:"user",content:JSON.stringify(input)}]})
+      });
+      const data=await res.json();
+      if(data.error)throw new Error(data.error.message);
+      setApiOptimizedPrompt(data.content[0]?.text?.trim()||"");
+    }catch(e){setApiError("Ottimizza Prompt — "+e.message);}
+    finally{setApiLoading(p=>({...p,prompt:false}));}
+  };
+
   // ── Prompt assembly ───────────────────────────────────────────────────────
-  const s=setting, t=tecnica;
-  const styleCore=()=>t.core_style.length>0?t.core_style.join(", "):t.final_instruction||t.medium_technique||MJ_TASK_FB;
+  const s=setting,t=tecnica;
+  const styleCore=()=>t.core_style.length>0?t.core_style.join(", "):(t.final_instruction||"").replace(/\n+/g," ").trim()||t.medium_technique||MJ_TASK_FB;
   const noList=()=>{const b=t.elements_to_avoid.length>0?t.elements_to_avoid.join(", "):NO_DEFAULT;return mj.no_extra?b+", "+mj.no_extra:b;};
   const getLQ=()=>t.line_quality;
   const getELA=()=>t.elements_to_add;
-  const colStr=()=>t.accent_color?t.accent_color+(t.secondary_accent?` and ${t.secondary_accent}`:"")+" accents":"";
   const enhParts=()=>[t.abstraction&&"high abstraction preserving subject identity",t.motion&&"motion via directional ink strokes",t.asymmetrical&&"asymmetrical cinematic composition"].filter(Boolean);
 
-  // Block builders — per le tre gen functions
-  const subjectBlock=()=>[sp(s.main_subject),s.subject_action&&sp(s.subject_action),s.costume&&`wearing ${sp(s.costume)}`].filter(Boolean).join(", ");
-  const sceneBlock=()=>[s.foreground&&`${sp(s.foreground)} in foreground`,sp(s.scene_environment),...s.props.map(sp).filter(Boolean)].filter(Boolean).join(", ");
-  const lightingBlock=()=>[s.time_lighting&&`${sp(s.time_lighting)} lighting`,sp(s.lighting_setup),sp(s.lighting_direction)].filter(Boolean).join(", ");
-
-  const stylV=parseInt(mj.stylize)||0, chaosV=parseInt(mj.chaos)||0, weirdV=parseInt(mj.weird)||0;
-  const qHigh=(isV8&&mj.hd)||mj.quality==="4", qLow=mj.quality==="0.25"||mj.quality==="0.5";
+  const stylV=parseInt(mj.stylize)||0,chaosV=parseInt(mj.chaos)||0,weirdV=parseInt(mj.weird)||0;
+  const qHigh=(isV8&&mj.hd)||mj.quality==="4",qLow=mj.quality==="0.25"||mj.quality==="0.5";
   const stylSem=stylV>=601?"maximum artistic freedom — highly stylized and painterly":stylV>=301?"expressive and aesthetically interpreted — strong visual style":stylV>0&&stylV<=100?"precise and literal — minimal artistic elaboration":"";
   const chaosSem=chaosV>=61?"highly experimental and unpredictable composition":chaosV>=21?"varied and unexpected composition":"";
   const weirdSem=weirdV>=1001?"dreamlike surreal logic":weirdV>=201?"subtly unconventional atmosphere":"";
   const qOpts=isV8?[["1","1 — default"],["4","4 — alta coerenza (4x GPU)"]]:isV7?[["1","1 — default"],["2","2 — alta"],["4","4 — massima"]]:[["0.25","0.25 — rapido"],["0.5","0.5 — medio"],["1","1 — default"]];
 
-  // Shared param builder for MJ suffix
   const mjParams=()=>{
-    const srefUrls=[mj.sref,...(mj.moodboard?mj.moodboard.trim().split(/\s+/):[])] .filter(Boolean);
+    const srefUrls=[mj.sref,...(mj.moodboard?mj.moodboard.trim().split(/\s+/):[])].filter(Boolean);
     const srefParam=srefUrls.length>0?`--sref ${srefUrls.join(" ")}`:"";
     const swParam=srefUrls.length===1&&mj.sref&&mj.sw?`--sw ${mj.sw}`:"";
-    return{srefUrls,srefParam,swParam,
-      params:[
-        `--ar ${s.aspect_ratio||"1:1"}`,
-        mj.version&&`--v ${mj.version}`,
-        !isV7&&mj.style&&`--style ${mj.style}`,
-        mj.quality&&mj.quality!=="1"&&`--q ${mj.quality}`,
-        isV8&&mj.hd&&"--hd",
-        isV8&&mj.exp&&"--exp",
-        mj.chaos&&`--chaos ${mj.chaos}`,
-        mj.stylize&&`--stylize ${mj.stylize}`,
-        mj.weird&&`--weird ${mj.weird}`,
-        mj.seed&&`--seed ${mj.seed}`,
-        mj.iw&&`--iw ${mj.iw}`,
-        srefParam,swParam,
-        isV8&&srefUrls.length>0&&`--sv ${mj.sv}`,
-        !isV7&&!isV8&&mj.cref&&`--cref ${mj.cref}`,
-        !isV7&&!isV8&&mj.cref&&mj.cw&&`--cw ${mj.cw}`,
-        isV7&&mj.cref&&`--oref ${mj.cref}`,
-        isV7&&mj.cref&&mj.cw&&`--ow ${mj.cw}`,
-        mj.tile&&"--tile",
-        mj.personalize&&`--p ${mj.personalize}`,
-        mj.useNo&&`--no ${noList()}`
-      ].filter(Boolean)
-    };
+    return{srefUrls,srefParam,swParam,params:[
+      `--ar ${s.aspect_ratio||"1:1"}`,mj.version&&`--v ${mj.version}`,
+      !isV7&&mj.style&&`--style ${mj.style}`,mj.quality&&mj.quality!=="1"&&`--q ${mj.quality}`,
+      isV8&&mj.hd&&"--hd",isV8&&mj.exp&&"--exp",mj.chaos&&`--chaos ${mj.chaos}`,
+      mj.stylize&&`--stylize ${mj.stylize}`,mj.weird&&`--weird ${mj.weird}`,
+      mj.seed&&`--seed ${mj.seed}`,mj.iw&&`--iw ${mj.iw}`,srefParam,swParam,
+      isV8&&srefUrls.length>0&&`--sv ${mj.sv}`,
+      !isV7&&!isV8&&mj.cref&&`--cref ${mj.cref}`,!isV7&&!isV8&&mj.cref&&mj.cw&&`--cw ${mj.cw}`,
+      isV7&&mj.cref&&`--oref ${mj.cref}`,isV7&&mj.cref&&mj.cw&&`--ow ${mj.cw}`,
+      mj.tile&&"--tile",mj.personalize&&`--p ${mj.personalize}`,
+      mj.useNo&&`--no ${noList()}`
+    ].filter(Boolean)};
   };
 
+  // ── genMJ v9.0 — sequenza ridefinita + fusione luce algoritmica ────────────
   const genMJ=()=>{
-    const sc=sp(styleCore()),enh=enhParts();
-    const subj=subjectBlock(),scene=sceneBlock(),light=lightingBlock();
-    const atmP=[sp(s.lighting_quality),sp(t.grain_texture),t.contrast_level&&`${sp(t.contrast_level)} contrast`,sp(t.toning),t.vignette&&`${sp(t.vignette)} vignette`].filter(Boolean);
-    const col=sp(colStr());
-    const colP=[col,t.color_temperature&&`${sp(t.color_temperature)} tones`,sp(t.color_palette_style),sp(t.saturation_level)].filter(Boolean);
-    const idP=[sp(t.genre_primary),sp(t.aesthetic_vibe),sp(t.art_movement),sp(t.era_period),...t.artist_reference.map(a=>`in the style of ${sp(a)}`),...t.genre_modifiers.map(sp)].filter(Boolean);
-    const techP=[sp(t.medium_technique),sp(t.medium_render_style),sp(t.surface_quality),sp(t.paper_texture),sp(t.line_quality_style),t.lens_focal&&`${sp(t.lens_focal)} lens`,sp(t.film_stock),sp(t.camera_model),sp(t.aperture),t.depth_of_field&&`${sp(t.depth_of_field)} depth of field`,sp(t.rendering_engine)].filter(Boolean);
-    const lqP=getLQ().map(sp).filter(Boolean);
-    const elaP=getELA().map(sp).filter(Boolean).slice(0,5);
-    const compP=[s.composition_style&&`${sp(s.composition_style)} composition`,sp(s.shooting_angle),sp(t.detail_level)].filter(Boolean);
-    let parts;
+    const prefix=GENRES.find(g=>g.value===sceneGenre)?.prefix??"";
+    const sc=sp(styleCore());
+    const isPhoto=t.genre_primary==="photography"||["lens_focal","aperture","camera_model","film_stock"].some(k=>t[k]);
+
+    // Blocco 2 — Soggetto
+    const subjParts=[sp(s.main_subject),s.subject_action&&sp(s.subject_action),s.costume&&`wearing ${sp(s.costume)}`].filter(Boolean);
+
+    // Blocco 3 — Mood & Ambiente (time_lighting qui, non nel blocco luce)
+    const ambParts=[
+      s.mood_emotion&&`${sp(s.mood_emotion)} mood`,
+      sp(s.scene_environment),
+      s.time_lighting&&sp(s.time_lighting),
+      s.foreground&&`${sp(s.foreground)} in foreground`,
+      ...s.props.map(sp).filter(Boolean)
+    ].filter(Boolean);
+
+    // Blocco 4 — Luce (fusione algoritmica)
+    const lightFused=buildLightBlock(sp(s.lighting_direction),sp(s.lighting_setup),sp(s.lighting_quality));
+
+    // Blocco 5 — Composizione
+    const compParts=[s.composition_style&&`${sp(s.composition_style)} composition`,sp(s.shooting_angle)].filter(Boolean);
+
+    // Blocco 6 — Tecnica (condizionale per genere)
+    const techParts=[
+      sp(t.genre_primary),...t.genre_modifiers.map(sp),
+      sp(t.medium_technique),sp(t.medium_render_style),
+      sp(t.surface_quality),sp(t.paper_texture),sp(t.line_quality_style),sp(t.rendering_engine),
+      ...(isPhoto?[t.lens_focal&&`${sp(t.lens_focal)} lens`,sp(t.film_stock),sp(t.camera_model),sp(t.aperture)].filter(Boolean):[])
+    ].filter(Boolean);
+
+    // Blocco 7 — Stile
+    const styleParts=[sp(t.aesthetic_vibe),sp(t.art_movement),sp(t.era_period),...t.artist_reference.map(a=>`in the style of ${sp(a)}`)].filter(Boolean);
+
+    // Blocco 8 — Atmosfera
+    const atmParts=[sp(t.grain_texture),t.vignette&&`${sp(t.vignette)} vignette`,t.contrast_level&&`${sp(t.contrast_level)} contrast`,sp(t.toning)].filter(Boolean);
+
+    // Blocco 9 — Colore
+    const colParts=[
+      t.accent_color&&(t.secondary_accent?`${sp(t.accent_color)} and ${sp(t.secondary_accent)} accents`:`${sp(t.accent_color)} accents`),
+      sp(t.color_temperature),sp(t.color_palette_style),sp(t.saturation_level)
+    ].filter(Boolean);
+
+    // Blocco 10 — Elements
+    const elaParts=getELA().map(sp).filter(Boolean).slice(0,3);
+
+    // Blocco 11 — Dettaglio
+    const detailParts=[sp(t.detail_level),isPhoto&&t.depth_of_field&&`${sp(t.depth_of_field)} depth of field`].filter(Boolean);
+
+    // Blocco 12 — Destinazione
+    const destParts=[sp(s.narrative_context)].filter(Boolean);
+
+    // Blocco 13 — Residuale (tronca a prima clausola per MJ)
+    const mjNotes=s.free_style_notes?sp(s.free_style_notes).split(/[;\u2014]/)[0].trim().slice(0,80):"";
+
+    const lqParts=getLQ().map(sp).filter(Boolean);
+    const enh=enhParts();
+
+    let rawParts;
     if(imgMode){
       const rein=[s.main_subject&&`focusing on ${sp(s.main_subject)}`,s.scene_environment&&`set in ${sp(s.scene_environment)}`].filter(Boolean);
-      parts=[sc+" — apply to image",...rein,s.mood_emotion&&`${sp(s.mood_emotion)} mood`,light,...atmP,...lqP,...elaP,...colP,...idP,...techP,...compP,...enh,sp(s.free_style_notes)].filter(Boolean);
+      rawParts=[sc+" — apply to image",...rein,...compParts,...ambParts.filter(p=>!p.includes(sp(s.scene_environment))),lightFused,...atmParts,...techParts,...colParts,...styleParts,...lqParts,...elaParts,...detailParts,...enh,mjNotes].filter(Boolean);
     }else{
-      parts=[sc,subj,scene,s.mood_emotion&&`${sp(s.mood_emotion)} mood`,light,...atmP,...lqP,...elaP,...colP,...idP,...techP,...compP,...enh,sp(s.free_style_notes)].filter(Boolean);
+      rawParts=[prefix||null,sc,...subjParts,...ambParts,lightFused,...compParts,...techParts,...styleParts,...atmParts,...colParts,...elaParts,...lqParts,...detailParts,...destParts,...enh,mjNotes].filter(Boolean);
     }
+
+    const MJ_BUDGET=1400;
+    const mjSeen=new Set();
+    const mjToks=rawParts.join(", ").split(", ").map(x=>x.trim()).filter(Boolean).filter(tok=>{
+      const k=tok.toLowerCase().replace(/[\s|,]+/g,"");
+      if(mjSeen.has(k))return false;mjSeen.add(k);return true;
+    });
+    let mjText="";
+    for(const tok of mjToks){const c=mjText?mjText+", "+tok:tok;if(c.length>MJ_BUDGET)continue;mjText=c;}
     const{params}=mjParams();
-    const pr=`${dedup(parts).join(", ")} ${params.join(" ")}`;
+    const pr=`${mjText} ${params.join(" ")}`;
     return imgMode?`[URL_IMMAGINE_MJ] ${pr}`:pr;
   };
 
   const genGPT=()=>{
-    // gpt-image-2 optimised order: scene/subject → mood/light → style/technique → colour → include/avoid → output
+    const prefix=GENRES.find(g=>g.value===sceneGenre)?.prefix??"";
     const sc=styleCore(),no=mj.useNo?noList():"";
     const styleStr=[sc,...getLQ()].filter(Boolean).join(", ");
     const includeStr=getELA().join(", ");
+    const subjectBlock=()=>[sp(s.main_subject),s.subject_action&&sp(s.subject_action),s.costume&&`wearing ${sp(s.costume)}`].filter(Boolean).join(", ");
+    const sceneBlock=()=>[s.foreground&&`${sp(s.foreground)} in foreground`,sp(s.scene_environment),...s.props.map(sp).filter(Boolean)].filter(Boolean).join(", ");
+    const lightingBlock=()=>[s.time_lighting&&`${sp(s.time_lighting)} lighting`,sp(s.lighting_setup),sp(s.lighting_direction)].filter(Boolean).join(", ");
     const subj=subjectBlock(),scene=sceneBlock(),light=lightingBlock();
     const{srefUrls}=mjParams();
-    const needsThink=t.asymmetrical||chaosV>=21;
+    // v9.02 — Use case line: derived from narrative_context or genre_primary
+    const GPT_UC_MAP={photography:"editorial photograph","3D render":"3D concept render",watercolor:"watercolor illustration","ink sketch":"editorial ink illustration","concept art":"concept art frame",manga:"manga illustration",painting:"fine art painting",illustration:"editorial illustration"};
+    const useCaseLine=(()=>{if(s.narrative_context)return`Use case: ${sp(s.narrative_context)}.`;const uc=GPT_UC_MAP[t.genre_primary];return uc?`Use case: ${uc}.`:""})();
+    // v9.02 — extras: rimosse le MJ-semantic translations (stylSem/chaosSem/weirdSem) e i quality descriptor
+    // Per gpt-image-2 non hanno effetto — la qualità si controlla via API params, non nel prompt
     const extras=[
-      qHigh&&"Output resolution: maximum quality, high detail.",
-      qLow&&"Output: standard quality.",
       mj.tile&&"Design as a seamless repeating tile pattern.",
-      stylSem&&`Style intensity: ${stylSem}.`,
-      chaosSem&&`Composition directive: ${chaosSem}.`,
-      weirdSem&&`Atmosphere: ${weirdSem}.`,
       srefUrls.length>0&&`(Note: upload style reference image(s) separately — ${srefUrls.join(", ")}${srefUrls.length===1&&mj.sw?`, sw ${mj.sw}`:"."})`  ,
-      mj.cref&&`(Note: upload character reference separately — ${mj.cref}${mj.cw?`, cw ${mj.cw}/100`:"."})`
+      mj.cref&&`(Note: upload character reference separately — ${mj.cref}${mj.cw?`, cw ${mj.cw}/100`:"."})` 
     ].filter(Boolean);
     const colorLine=t.accent_color?`\nColors: black and white base, with ${t.accent_color}${t.secondary_accent?` and ${t.secondary_accent}`:""} as minimal accent colors — focal areas, highlights, and splashes only.`+(t.color_temperature?` Color temperature: ${t.color_temperature}.`:"")+(t.color_palette_style?` Palette: ${t.color_palette_style}.`:"")+(t.saturation_level?` Saturation: ${t.saturation_level}.`:""):"";
     const atmLine=[s.lighting_quality&&`Lighting quality: ${s.lighting_quality}`,t.grain_texture&&`Texture: ${t.grain_texture}`,t.contrast_level&&`Contrast: ${t.contrast_level}`,t.toning&&`Toning: ${t.toning}`,t.vignette&&`Vignette: ${t.vignette}`].filter(Boolean).join("; ");
     const idLine=[t.genre_primary&&`Genre: ${t.genre_primary}`,t.aesthetic_vibe&&`Aesthetic: ${t.aesthetic_vibe}`,t.art_movement&&`Art movement: ${t.art_movement}`,t.era_period&&`Era: ${t.era_period}`,t.artist_reference.length>0&&`Reference artists: ${t.artist_reference.join(", ")}`].filter(Boolean).join("; ");
     const techLine=[t.medium_technique&&`Technique: ${t.medium_technique}`,t.medium_render_style&&`Render style: ${t.medium_render_style}`,t.surface_quality&&`Surface: ${t.surface_quality}`,t.paper_texture&&`Paper: ${t.paper_texture}`,t.lens_focal&&`Focal length: ${t.lens_focal}`,t.film_stock&&`Film stock: ${t.film_stock}`,t.camera_model&&`Camera: ${t.camera_model}`,t.aperture&&`Aperture: ${t.aperture}`,t.depth_of_field&&`Depth of field: ${t.depth_of_field}`,t.rendering_engine&&`Engine: ${t.rendering_engine}`].filter(Boolean).join("; ");
-    const compLine=[s.composition_style&&`Composition: ${s.composition_style}`,s.shooting_angle&&`Camera: ${s.shooting_angle}`,t.detail_level&&`Detail level: ${t.detail_level}`].filter(Boolean).join(" · ");
-    const lines=imgMode?[
-      // 1. Scena e soggetto
-      `Apply this style to the attached image${s.main_subject?`, focusing on ${s.main_subject}`:""}${s.scene_environment?`, set in ${s.scene_environment}`:""}:`,
-      "",compLine,`Aspect ratio: ${s.aspect_ratio||"1:1"}`,
-      // 2. Mood e luce
-      s.mood_emotion&&`\nMood: ${s.mood_emotion}`,light&&`Lighting: ${light}`,atmLine&&`Atmosphere: ${atmLine}`,
-      // 3. Stile e tecnica
-      `\nStyle: ${styleStr||"expressive editorial illustration"}.`,idLine&&`Identity: ${idLine}`,techLine&&`Technical: ${techLine}`,
-      // 4. Colore
-      colorLine,
-      // 5. Include / Avoid
-      includeStr&&`\nInclude: ${includeStr}.`,no&&`Avoid: ${no}.`,
-      (t.abstraction||t.motion||t.asymmetrical)&&"\nAdditional directives:",
-      t.abstraction&&"- Increase abstraction while preserving subject identity.",t.motion&&"- Add motion using directional ink strokes.",t.asymmetrical&&"- Use asymmetrical cinematic composition.",
-      // 6. Output
-      s.free_style_notes&&`\nNote: ${s.free_style_notes}`,extras.length>0&&`\nFrom configuration:\n${extras.join("\n")}`,
-      needsThink&&"\nReason through composition and spatial relationships before generating.",
-      "\nOutput: high-resolution, no text, no watermark, editorial/gallery quality."
-    ]:[
-      // 1. Scena e soggetto
-      subj&&`Subject: ${subj}.`,scene&&`Setting: ${scene}.`,
-      compLine,`Aspect ratio: ${s.aspect_ratio||"1:1"}`,
-      // 2. Mood e luce
-      s.mood_emotion&&`\nMood: ${s.mood_emotion}.`,light&&`Lighting: ${light}.`,atmLine&&`Atmosphere: ${atmLine}.`,
-      // 3. Stile e tecnica
-      `\nStyle: ${styleStr||"expressive editorial illustration"}.`,idLine&&`Identity: ${idLine}.`,techLine&&`Technical: ${techLine}.`,
-      // 4. Colore
-      colorLine,
-      // 5. Include / Avoid
-      includeStr&&`\nInclude: ${includeStr}.`,no&&`Avoid: ${no}.`,
-      (t.abstraction||t.motion||t.asymmetrical)&&"\nAdditional directives:",
-      t.abstraction&&"- Increase abstraction while preserving subject identity.",t.motion&&"- Add motion using directional ink strokes.",t.asymmetrical&&"- Use asymmetrical cinematic composition.",
-      // 6. Output
-      s.free_style_notes&&`\nNote: ${s.free_style_notes}`,extras.length>0&&`\nFrom configuration:\n${extras.join("\n")}`,
-      needsThink&&"\nReason through composition and spatial relationships before generating.",
-      "\nOutput: high-resolution, no text, no watermark, editorial/gallery quality."
-    ];
+    const compLine=[s.composition_style&&`Composition: ${s.composition_style}`,s.shooting_angle&&`Camera angle: ${s.shooting_angle}`,t.detail_level&&`Detail level: ${t.detail_level}`].filter(Boolean).join(" · ");
+    // v9.02 — "Output: high-resolution…" rimosso (quality descriptor inutile per gpt-image-2)
+    // Sostituito con "Constraints:" esplicito per limitare il drift del modello
+    const constraintLine="\nConstraints: no text overlay, no watermark, no logos.";
+    const lines=imgMode?[`Apply this style to the attached image${s.main_subject?`, focusing on ${s.main_subject}`:""}${s.scene_environment?`, set in ${s.scene_environment}`:""}:`,"",compLine,`Aspect ratio: ${s.aspect_ratio||"1:1"}`,useCaseLine&&`\n${useCaseLine}`,s.mood_emotion&&`\nMood: ${s.mood_emotion}`,light&&`Lighting: ${light}`,atmLine&&`Atmosphere: ${atmLine}`,`\nStyle: ${styleStr||"expressive editorial illustration"}.`,idLine&&`Identity: ${idLine}`,techLine&&`Technical: ${techLine}`,colorLine,includeStr&&`\nInclude: ${includeStr}.`,no&&`Avoid: ${no}.`,(t.abstraction||t.motion||t.asymmetrical)&&"\nAdditional directives:",t.abstraction&&"- Increase abstraction while preserving subject identity.",t.motion&&"- Add motion using directional ink strokes.",t.asymmetrical&&"- Use asymmetrical cinematic composition.",s.free_style_notes&&`\nNote: ${s.free_style_notes}`,extras.length>0&&`\nFrom configuration:\n${extras.join("\n")}`,constraintLine]:[subj&&`Subject: ${prefix?prefix+" ":""}${subj}.`,scene&&`Setting: ${scene}.`,compLine,`Aspect ratio: ${s.aspect_ratio||"1:1"}`,useCaseLine&&`\n${useCaseLine}`,s.mood_emotion&&`\nMood: ${s.mood_emotion}.`,light&&`Lighting: ${light}.`,atmLine&&`Atmosphere: ${atmLine}.`,`\nStyle: ${styleStr||"expressive editorial illustration"}.`,idLine&&`Identity: ${idLine}.`,techLine&&`Technical: ${techLine}.`,colorLine,includeStr&&`\nInclude: ${includeStr}.`,no&&`Avoid: ${no}.`,(t.abstraction||t.motion||t.asymmetrical)&&"\nAdditional directives:",t.abstraction&&"- Increase abstraction while preserving subject identity.",t.motion&&"- Add motion using directional ink strokes.",t.asymmetrical&&"- Use asymmetrical cinematic composition.",s.free_style_notes&&`\nNote: ${s.free_style_notes}`,extras.length>0&&`\nFrom configuration:\n${extras.join("\n")}`,constraintLine];
     return lines.filter(l=>l!==false&&l!==null&&l!==undefined&&l!=="").join("\n");
   };
 
   const genNB=()=>{
+    const prefix=GENRES.find(g=>g.value===sceneGenre)?.prefix??"";
     const sc=styleCore(),no=mj.useNo?noList():"";
     const styleStr=[sc,...getLQ()].filter(Boolean).join(". ");
     const resNote=qHigh?"4K resolution, ultra-high detail":qLow?"standard resolution":"high resolution, editorial quality";
@@ -774,13 +1074,12 @@ function App(){
     const mods=[stylSem,chaosSem,weirdSem].filter(Boolean);
     const needsThink=t.asymmetrical||chaosV>=21||weirdV>=201;
     const{srefUrls}=mjParams();
-    const subj=subjectBlock(),light=lightingBlock();
+    const subj=[sp(s.main_subject),s.subject_action&&sp(s.subject_action),s.costume&&`wearing ${sp(s.costume)}`].filter(Boolean).join(", ");
+    const light=[s.time_lighting&&`${sp(s.time_lighting)} lighting`,sp(s.lighting_setup),sp(s.lighting_direction)].filter(Boolean).join(", ");
     const sceneStr=[s.foreground&&`${sp(s.foreground)} in foreground`,sp(s.scene_environment),...s.props.map(sp).filter(Boolean)].filter(Boolean).join(", ");
     let sec1;
-    if(imgMode){
-      sec1=`Apply this expressive editorial illustration style to the attached image${s.main_subject?`, focusing on ${s.main_subject}`:""}${s.scene_environment?`, set in ${s.scene_environment}`:""}.${s.mood_emotion?` Mood: ${s.mood_emotion}.`:""}${light?` ${cap(light)}.`:""}${s.composition_style?` ${cap(s.composition_style)} composition.`:""}`;
-    }else{
-      sec1=`Create an expressive editorial illustration of ${subj||"[main subject]"}${sceneStr?` in ${sceneStr}`:""}${s.mood_emotion?`, conveying ${s.mood_emotion}`:""}.${light?` ${cap(light)}.`:""}${s.composition_style?` ${cap(s.composition_style)} composition.`:""}${s.shooting_angle?` Camera: ${s.shooting_angle}.`:""}`;
+    if(imgMode){sec1=`Apply this expressive editorial illustration style to the attached image${s.main_subject?`, focusing on ${s.main_subject}`:""}${s.scene_environment?`, set in ${s.scene_environment}`:""}.${s.mood_emotion?` Mood: ${s.mood_emotion}.`:""}${light?` ${cap(light)}.`:""}${s.composition_style?` ${cap(s.composition_style)} composition.`:""}`;
+    }else{sec1=`Create an expressive editorial illustration of ${prefix?prefix+" ":""}${subj||"[main subject]"}${sceneStr?` in ${sceneStr}`:""}${s.mood_emotion?`, conveying ${s.mood_emotion}`:""}.${light?` ${cap(light)}.`:""}${s.composition_style?` ${cap(s.composition_style)} composition.`:""}${s.shooting_angle?` Camera: ${s.shooting_angle}.`:""}`;
     }
     const sec2=`Style: ${styleStr||"expressive editorial illustration style"}.`;
     const sec3=getELA().length>0?`Include: ${getELA().join(", ")}.`:"";
@@ -789,18 +1088,93 @@ function App(){
     const atmParts=[s.lighting_quality&&`Lighting quality: ${s.lighting_quality}`,t.grain_texture&&`Texture: ${t.grain_texture}`,t.contrast_level&&`Contrast: ${t.contrast_level}`,t.toning&&`Toning: ${t.toning}`,t.vignette&&`Vignette: ${t.vignette}`].filter(Boolean);
     const idParts=[t.genre_primary&&`Genre: ${t.genre_primary}`,t.aesthetic_vibe&&`Aesthetic: ${t.aesthetic_vibe}`,t.art_movement&&`Art movement: ${t.art_movement}`,t.era_period&&`Era: ${t.era_period}`,t.artist_reference.length>0&&`Reference artists: ${t.artist_reference.join(", ")}`].filter(Boolean);
     const techParts=[t.medium_technique&&`Technique: ${t.medium_technique}`,t.medium_render_style&&`Render style: ${t.medium_render_style}`,t.surface_quality&&`Surface: ${t.surface_quality}`,t.paper_texture&&`Paper: ${t.paper_texture}`,t.lens_focal&&`Focal length: ${t.lens_focal}`,t.film_stock&&`Film stock: ${t.film_stock}`,t.camera_model&&`Camera: ${t.camera_model}`,t.aperture&&`Aperture: ${t.aperture}`,t.depth_of_field&&`Depth of field: ${t.depth_of_field}`,t.rendering_engine&&`Engine: ${t.rendering_engine}`].filter(Boolean);
-    const sec6=[s.aspect_ratio&&`Aspect ratio: ${s.aspect_ratio}.`,`Output: ${resNote}.`,mj.tile&&"Design as a seamless repeating tile pattern.",atmParts.length>0&&`Atmosphere: ${atmParts.join("; ")}.`,idParts.length>0&&`Identity: ${idParts.join("; ")}.`,techParts.length>0&&`Technical: ${techParts.join("; ")}.`,active.length>0&&`Directives: ${active.join("; ")}.`,mods.length>0&&`Intensity: ${mods.join(" ")}`,srefUrls.length>0&&`↑ Upload style reference image(s): ${srefUrls.join(", ")}`,mj.cref&&`↑ Upload character reference: ${mj.cref}${mj.cw?` (cw ${mj.cw}/100)`:""}`  ,imgMode&&"↑ Allega l'immagine sorgente nel tool prima di inviare.",needsThink&&"Reason through the composition and spatial balance before generating.",s.free_style_notes&&`Note: ${s.free_style_notes}`].filter(Boolean);
-    return[sec1,sec2,sec3,sec4,sec5,sec6.join("\n")].filter(Boolean).join("\n\n");
+    const refNote=srefUrls.length>0?`(Style reference: ${srefUrls.join(", ")})`:"";
+    const extras=[resNote,mods.length>0&&`Modifiers: ${mods.join(". ")}`,mj.seed&&`Seed: ${mj.seed}`,mj.tile&&"Tile: seamless",refNote].filter(Boolean);
+    const lines=[sec1,"",sec2,sec3&&sec3,sec4&&sec4,"",sec5,...(atmParts.length>0?["",`Atmosphere: ${atmParts.join(", ")}.`]:[]),...(idParts.length>0?[`Identity: ${idParts.join(", ")}.`]:[]),...(techParts.length>0?[`Technical: ${techParts.join(", ")}.`]:[]),active.length>0&&"\nDirectives: "+active.join("; ")+".",s.free_style_notes&&`Note: ${s.free_style_notes}`,needsThink&&"\nThink carefully about spatial composition before generating.",extras.length>0&&"\n"+extras.join(" ")].filter(l=>l!==false&&l!==null&&l!==undefined&&l!=="");
+    return lines.join("\n");
   };
 
-  const output=fmt==="midjourney"?genMJ():fmt==="chatgpt"?genGPT():genNB();
-  const outH=fmt==="midjourney"?"150px":"270px";
+  const LEO_BUDGET=850;
+  const genLeonardo=()=>{
+    const prefix=GENRES.find(g=>g.value===sceneGenre)?.prefix??"";
+    const isPhoto=t.genre_primary==="photography"||["lens_focal","aperture","camera_model","film_stock","depth_of_field"].some(k=>t[k]);
+    const idParts=[sp(t.genre_primary),sp(t.aesthetic_vibe),t.era_period&&sp(t.era_period),t.art_movement&&sp(t.art_movement),t.artist_reference.length>0&&t.artist_reference.map(a=>`${sp(a)} style`).join(", "),...t.genre_modifiers.map(sp)].filter(Boolean);
+    let subjCore=s.main_subject;
+    if(subjCore){const items=subjCore.split(", ");subjCore=items.length>5?items.slice(0,5).join(", "):subjCore;}
+    const subjParts=[subjCore&&sp(subjCore),s.subject_action&&sp(s.subject_action),s.costume&&`wearing ${sp(s.costume)}`].filter(Boolean);
+    const sceneParts=[s.foreground&&`${sp(s.foreground)} in foreground`,sp(s.scene_environment),...s.props.slice(0,2).map(sp)].filter(Boolean);
+    const moodParts=[sp(s.mood_emotion),sp(s.narrative_context)].filter(Boolean);
+    const lightParts=[s.time_lighting&&sp(s.time_lighting),sp(s.lighting_setup),sp(s.lighting_direction),sp(s.lighting_quality)].filter(Boolean);
+    const photoParts=[sp(t.camera_model),sp(t.lens_focal),sp(t.aperture),sp(t.film_stock),t.depth_of_field&&`${sp(t.depth_of_field)} depth of field`,sp(t.rendering_engine)].filter(Boolean);
+    const atmParts=[sp(t.grain_texture),sp(t.toning),sp(t.vignette)].filter(Boolean);
+    const renderParts=[sp(t.medium_render_style),sp(t.surface_quality),sp(t.paper_texture),sp(t.line_quality_style)].filter(Boolean);
+    const compParts=[s.composition_style&&`${sp(s.composition_style)} composition`,sp(s.shooting_angle),sp(t.detail_level)].filter(Boolean);
+    const isMono=(t.color_palette_style==="monochrome"||t.saturation_level==="desaturated")&&t.genre_primary==="photography";
+    const colParts=isMono?[]:[t.accent_color&&`${sp(t.accent_color)}${t.secondary_accent?` and ${sp(t.secondary_accent)}`:""} accents`,sp(t.color_temperature),sp(t.color_palette_style),sp(t.saturation_level)].filter(Boolean);
+    const elaParts=getELA().slice(0,3).map(sp).filter(Boolean);
+    const enhParts2=[t.abstraction&&"high abstraction",t.motion&&"motion blur",t.asymmetrical&&"asymmetrical composition"].filter(Boolean);
+    const lqParts=getLQ().slice(0,2).map(sp).filter(Boolean);
+    let sections,prompt;
+    if(imgMode){
+      const focus=[s.main_subject&&`focusing on ${sp(s.main_subject)}`,s.scene_environment&&`set in ${sp(s.scene_environment)}`].filter(Boolean);
+      sections=[idParts.join(", "),focus.join(", "),moodParts.join(", "),lightParts.join(", "),photoParts.join(", "),atmParts.join(", "),renderParts.join(", "),compParts.join(", "),colParts.join(", "),elaParts.join(", "),enhParts2.join(", "),sp(s.free_style_notes)].filter(Boolean);
+      prompt="apply to image";
+    }else{
+      sections=[idParts.join(", "),subjParts.join(", "),sceneParts.join(", "),moodParts.join(", "),lightParts.join(", "),photoParts.join(", "),atmParts.join(", "),renderParts.join(", "),compParts.join(", "),colParts.join(", "),lqParts.join(", "),elaParts.join(", "),enhParts2.join(", "),sp(s.free_style_notes)].filter(Boolean);
+      prompt="";
+    }
+    for(const sec of sections){const candidate=prompt?prompt+", "+sec:sec;if(candidate.length>LEO_BUDGET)break;prompt=candidate;}
+    prompt=dedup(prompt.split(", ")).join(", ");
+    if(prefix)prompt=prefix+", "+prompt;
+    const no=t.elements_to_avoid.length>0?t.elements_to_avoid.join(", "):(mj.useNo?NO_DEFAULT:"");
+    return prompt+(no?"\n\nNegative prompt: "+no:"");
+  };
+
+  const genLeonardoInstructions=()=>{
+    const isPhoto=t.genre_primary==="photography"||["lens_focal","aperture","camera_model","film_stock","depth_of_field"].some(k=>t[k]);
+    const modelMap={lucid_realism:"Lucid Realism",lucid_origin:"Lucid Origin",phoenix:"Phoenix",nano_banana:"Nano Banana",auto:isPhoto?"Lucid Realism":"Lucid Origin"};
+    const modelName=modelMap[leo.model]||"Lucid Realism";
+    const ar=s.aspect_ratio||"1:1";
+    const autoContrast=t.contrast_level==="flat"?"Low (1.8)":t.contrast_level==="high"?"High (4.0)":"Medium (3.0)";
+    const contrastLabel=leo.contrast==="Low"?"Low (1.8)":leo.contrast==="High"?"High (4.0)":leo.contrast==="Medium"?"Medium (3.0)":autoContrast;
+    const qualityLabel=leo.quality_mode==="Ultra"?"Ultra":"Fast";
+    const negItems=t.elements_to_avoid.length>0?t.elements_to_avoid:(mj.useNo?NO_DEFAULT.split(", "):[]);
+    const negPrompt=negItems.join(", ");
+    const modelNote=isPhoto?"Fotografia analogica, ritratto, street, paesaggio — simula film grain e fisica della luce reale.":modelName==="Lucid Origin"?"Illustrazione, concept art, stili misti — massima aderenza al prompt, HD nativo.":modelName==="Phoenix"?"Alta aderenza al prompt, ottimo per testo in immagine e reference strutturale.":"Editing iterativo — usalo per modifiche precise su immagine esistente.";
+    const hasStyleRef=mj.sref,hasMoodboard=mj.moodboard&&mj.moodboard.trim(),hasCharRef=mj.cref;
+    const lines=["╔════════════════════════════════════════════════════╗","║      LEONARDO AI — IMPOSTAZIONI UI (Image Gen V2)  ║","╚════════════════════════════════════════════════════╝","","  1. MODELLO",`     Seleziona: ${modelName}`,`     (menu a tendina in alto a sinistra dell'interfaccia)`,`     └─ ${modelNote}`,"","  2. QUALITY MODE",`     Seleziona: ${qualityLabel}`,`     └─ Fast = più veloce, meno token  ·  Ultra = qualità massima (~2× token)`,`     ⚠ In precedenza si chiamava "Alchemy" — ora è questo toggle.`,"","  3. DIMENSIONI IMMAGINE",`     Aspect Ratio: ${ar}`,`     └─ Usa lo slider/preset dimensioni in fondo al pannello di sinistra`,"",negPrompt?`  4. NEGATIVE PROMPT\n     ${negPrompt}`:"  4. NEGATIVE PROMPT\n     (lascia vuoto — nessun elemento da evitare specificato)","","  5. CONTRAST (se visibile nelle Advanced Settings)",`     Valore suggerito: ${contrastLabel}`,`     └─ Potrebbe non apparire con tutti i modelli — se assente, ignora.`];
+    if(hasStyleRef||hasMoodboard||hasCharRef){lines.push("","  6. IMAGE GUIDANCE (riferimenti visivi)","     Clicca l'icona immagine a sinistra del campo prompt → Image Reference");if(hasStyleRef){lines.push("",`     Style Reference  →  ${mj.sref}`,"     Strength: Mid  (abbassa a Low per più libertà, alza a High per ancoraggio forte)");}if(hasMoodboard){const urls=mj.moodboard.trim().split(/\s+/).filter(Boolean);urls.forEach((u,i)=>{lines.push("",`     Style Reference ${i+2} →  ${u}`,"     Strength: Mid");});}if(hasCharRef){lines.push("",`     Character Reference  →  ${mj.cref}`,`     Strength: Mid  (alza a High per consistenza stretta del personaggio)`);}}
+    lines.push("","  ─── Workflow consigliato ───────────────────────────","  1. Copia il prompt qui sopra → incollalo nel campo testo","  2. Seleziona modello + Quality Mode","  3. Imposta aspect ratio","  4. Aggiungi Negative Prompt se necessario","  5. (Opz.) Aggiungi Image Reference per style/character","  6. Genera → usa Ultra Upscaler sul risultato finale");
+    return lines.join("\n");
+  };
+
+  const output=fmt==="midjourney"?genMJ():fmt==="chatgpt"?genGPT():fmt==="nanobanana"?genNB():genLeonardo();
+  const leoInstr=fmt==="leonardo"?genLeonardoInstructions():"";
+  const leoPromptLen=fmt==="leonardo"?output.split("\n\nNegative prompt:")[0].length:0;
+  const leoOverBudget=leoPromptLen>900,leoNearBudget=leoPromptLen>750&&leoPromptLen<=900;
+  const outH=fmt==="midjourney"?"150px":fmt==="leonardo"?"165px":"270px";
   const doCopy=()=>{const el=document.getElementById("pb-out");if(el){el.select();el.setSelectionRange(0,999999);try{document.execCommand("copy");}catch(e){}}setCopied(true);setTimeout(()=>setCopied(false),2000);};
+  const doCopyInstr=()=>{const el=document.getElementById("leo-instr-ta");if(el){el.select();el.setSelectionRange(0,999999);try{document.execCommand("copy");}catch(e){}}setCopiedInstr(true);setTimeout(()=>setCopiedInstr(false),2000);};
+  const doCopyOpt=()=>{try{navigator.clipboard.writeText(apiOptimizedPrompt);}catch(e){const ta=document.createElement("textarea");ta.value=apiOptimizedPrompt;document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);}setCopiedOpt(true);setTimeout(()=>setCopiedOpt(false),2000);};
 
   // ── RENDER ────────────────────────────────────────────────────────────────
   return h("div",null,
-    h("h2",null,"Prompt Builder"),
-    h("p",{className:"sub"},`Ink sketch · watercolor · Midjourney · ChatGPT / DALL-E · Nano Banana · v${V}`),
+    h("div",{style:{display:"flex",alignItems:"flex-start",justifyContent:"space-between",marginBottom:"2px"}},
+      h("h2",null,"Prompt Builder"),
+      h("button",{style:{fontSize:"11px",padding:"4px 8px",border:"0.5px solid var(--b2)",borderRadius:"var(--r)",background:"transparent",color:apiKey?"var(--ok-tx)":"var(--warn-tx)",cursor:"pointer",fontFamily:"var(--fs)"},onClick:()=>setShowApiKey(p=>!p)},
+        apiKey?"⚙ API Key ●":"⚙ API Key ○"
+      )
+    ),
+    h("p",{className:"sub"},`Ink sketch · watercolor · Midjourney · gpt-image-2 · Nano Banana · Leonardo AI · v${V}`),
+
+    // API Key panel
+    showApiKey&&h("div",{className:"api-key-bar"},
+      h("span",{style:{whiteSpace:"nowrap",fontWeight:"500"}},apiKey?"API key:":"API key (Anthropic):"),
+      h("input",{type:"password",placeholder:"sk-ant-…",value:apiKey,onChange:e=>saveApiKey(e.target.value)}),
+      apiKey&&h("button",{style:{fontSize:"11px",padding:"3px 8px",border:"0.5px solid var(--b2)",borderRadius:"var(--r)",background:"transparent",color:"var(--tt)",cursor:"pointer",fontFamily:"var(--fs)"},onClick:()=>{saveApiKey("");}},"Rimuovi"),
+      h("span",{style:{fontSize:"10px",color:"var(--tt)",whiteSpace:"nowrap"}},apiKey?"Salvata in localStorage":"Non configurata")
+    ),
+
     // Tab bar
     h("div",{className:"tabs-bar"},
       [["setting","Setting"],["tecnica","Tecnica"],["macchina","Macchina"],["scatto","Scatto"],["personaggi","Personaggi"]].map(([id,l])=>
@@ -808,8 +1182,20 @@ function App(){
       )
     ),
 
+    // API error banner (visibile in tutti i tab)
+    apiError&&h("div",{className:"api-err",style:{marginBottom:"10px"}},
+      apiError,
+      h("span",{style:{marginLeft:"8px",cursor:"pointer",fontWeight:"700"},onClick:()=>setApiError("")},"×")
+    ),
+
     // ══ TAB SETTING ══════════════════════════════════════════════
     tab==="setting"&&h("div",null,
+      h("div",{style:{display:"flex",alignItems:"center",gap:"10px",marginBottom:"14px",padding:"10px 12px",background:"var(--bs)",borderRadius:"var(--r)",border:"0.5px solid var(--b3)"}},
+        h("div",{style:{fontSize:"11px",fontWeight:"500",color:"var(--ts)",textTransform:"uppercase",letterSpacing:".06em",whiteSpace:"nowrap"}},"Genere scena"),
+        h("select",{className:"inp",style:{flex:"1",fontSize:"13px",fontWeight:"500"},value:sceneGenre,onChange:e=>setSceneGenre(e.target.value)},
+          GENRES.map(g=>h("option",{key:g.value,value:g.value},g.label))
+        )
+      ),
       h("div",{className:"json-row"},
         h("textarea",{value:jsonIn,onChange:e=>setJsonIn(e.target.value),placeholder:"Incolla qui il JSON prodotto dall'agente Claude…"}),
         h("div",{style:{display:"flex",flexDirection:"column",gap:"6px"}},
@@ -819,6 +1205,19 @@ function App(){
           h("button",{className:"load-btn",style:{fontSize:"11px",color:"var(--tt)"},onClick:clearScene},"Nuova scena")
         )
       ),
+
+      // Input originale — v9.0
+      h("div",{className:"orig-input-row"},
+        h("div",{className:"fld fw"},
+          h("div",{className:"lbl",style:{marginBottom:"3px"}},
+            "Input originale",
+            h(Tip,{text:"Testo italiano originale che hai dato all'agente per generare il JSON.\nOpzionale — se presente, viene usato dalle chiamate API per inferire segnali stilistici impliciti e verificare la fedeltà all'intenzione originale.\nParticolarmente utile per Ottimizza Stile."}),
+            h("span",{className:"opt"},"opzionale")
+          ),
+          h("textarea",{className:"inp",value:originalInput,placeholder:"Incolla qui il testo originale che hai dato all'agente…",rows:2,style:{resize:"none",lineHeight:"1.5",fontSize:"12px"},onChange:e=>setOriginalInput(e.target.value)})
+        )
+      ),
+
       err&&h("div",{className:"warn",style:{marginBottom:"10px"}},err),
       h(PresetBar,{presets:sPresets,selected:selectedSP,setSelected:setSelectedSP,name:sPresetName,setName:setSPresetName,onSave:saveSP,onLoad:loadSP,onDelete:deleteSP,onExport:exportSP,onImport:importSP,importRef:sImportRef,tip:"preset scena"}),
       sPresets.length===0&&h("div",{className:"tip-text",style:{marginBottom:"8px"}},"Nessun preset scena salvato."),
@@ -827,10 +1226,14 @@ function App(){
       h(Acc,{title:"Soggetto & Azione",sub:"chi è, cosa fa, come è vestito, oggetti narrativi",open:openS.sog,onToggle:()=>togS("sog"),cnt:cntS("main_subject","subject_action","mood_emotion","narrative_context","costume")+(s.props.length>0?1:0)},
         h("div",{className:"g2"},
           h(TFM,{...fpS("main_subject"),label:"Soggetto principale",ph:"woman at window, lighthouse…"}),
-          h(TF,{...fpS("subject_action"),label:"Azione",ph:"leaning against the wall, looking out the window…",opt:true}),
+          h("div",{style:(GREYED_FIELDS[sceneGenre]||[]).includes("subject_action")?{opacity:0.35,pointerEvents:"none"}:{}},
+            h(TF,{...fpS("subject_action"),label:"Azione",ph:"leaning against the wall, looking out the window…",opt:true})
+          ),
           h(TF,{...fpS("mood_emotion"),label:"Mood / Emozione",ph:"melancholic, nostalgic, cinematic…"}),
           h(TF,{...fpS("narrative_context"),label:"Contesto narrativo",ph:"book cover, editorial illustration…",opt:true}),
-          h(TF,{...fpS("costume"),label:"Costume / Abbigliamento",ph:"worn leather jacket, white shirt…",opt:true}),
+          h("div",{style:(GREYED_FIELDS[sceneGenre]||[]).includes("costume")?{opacity:0.35,pointerEvents:"none"}:{}},
+            h(TF,{...fpS("costume"),label:"Costume / Abbigliamento",ph:"worn leather jacket, white shirt…",opt:true})
+          ),
           h("div",{className:"fw"},h(TagsF,{label:"Props — oggetti narrativi della scena",fkey:"props",vals:s.props,st:fsS("props"),onChange:setS,onRst:()=>rstS("props"),opt:true}))
         )
       ),
@@ -849,8 +1252,14 @@ function App(){
         h("div",{className:"g2"},
           h(SF,{...fpS("time_lighting"),label:"Luce / Ora",opts:[["","— libero —"],["sunset"],["golden hour"],["soft daylight"],["foggy"],["night"],["blue hour"],["overcast"]]}),
           h(TFD,{...fpS("lighting_direction"),label:"Direzione luce",ph:"from the left, backlight, overhead…",dl:DL.lighting_direction_dl,opt:true,tip:"from the left/right = sorgente laterale\nbacklight = controluce, soggetto davanti alla luce\noverhead = dall'alto verso il basso\nfrom below = luce dal basso, effetto teatrale\n45 degrees = direzione diagonale classica del ritratto"}),
-          h(TF,{...fpS("lighting_setup"),label:"Setup luce",ph:"Rembrandt, volumetric, rim…",tip:"Rembrandt = triangolo di luce sulla guancia in ombra\nchiaroscuro = contrasto estremo luce/ombra (stile Caravaggio)\nrim light = luce dal bordo posteriore\nvolumetric = luce visibile nell'aria, raggi e nebbia\nsplit = viso diviso metà luce metà ombra"}),
+          h(TF,{...fpS("lighting_setup"),label:"Setup luce",ph:"Rembrandt, volumetric, rim, desk lamp + window…",tip:"Sorgente singola: Rembrandt, chiaroscuro, rim light, volumetric, split\nSorgenti multiple: 'desk lamp warm + window cool light from left'\nRimbrandt = triangolo di luce sulla guancia in ombra\nvolumetric = raggi di luce visibili nell'aria"}),
           h(TF,{...fpS("lighting_quality"),label:"Qualità luce",ph:"hard, soft, diffused…"})
+        ),
+        // Ottimizza Luce — Layer 2
+        h("div",{className:"api-btn-row"},
+          h("button",{className:"api-btn",onClick:callApiLuce,disabled:apiLoading.luce},
+            apiLoading.luce?"⏳ Ottimizzazione luce…":"🤖 Ottimizza Luce"
+          )
         )
       ),
 
@@ -873,6 +1282,15 @@ function App(){
           h(TFD,{...fpT("era_period"),label:"Epoca / Era",ph:"contemporary, 1970s, Belle Époque…",dl:DL.era_period}),
           h("div",{className:"fw"},h(TagsF,{label:"Riferimenti artisti",fkey:"artist_reference",vals:t.artist_reference,st:fsT("artist_reference"),onChange:setT,onRst:()=>rstT("artist_reference")})),
           h("div",{className:"fw"},h(TagsF,{label:"Modificatori genere",fkey:"genre_modifiers",vals:t.genre_modifiers,st:fsT("genre_modifiers"),onChange:setT,onRst:()=>rstT("genre_modifiers")}))
+        ),
+        // Ottimizza Stile — Layer 2
+        h("div",{className:"api-btn-row"},
+          h("span",{style:{fontSize:"10px",color:"var(--tt)",marginRight:"auto"}},
+            apiLoading.stile?"Analisi stile in corso…":coreStyleStale?"⚠ Campi stile modificati — Ottimizza Stile aggiorna core_style":""
+          ),
+          h("button",{className:"api-btn",onClick:callApiStile,disabled:apiLoading.stile},
+            apiLoading.stile?"⏳ Ottimizzazione stile…":"🤖 Ottimizza Stile"
+          )
         )
       ),
 
@@ -880,179 +1298,190 @@ function App(){
         h("div",{className:"g3"},
           h(TFD,{...fpT("medium_technique"),label:"Tecnica medium",ph:"ink sketch, oil painting, watercolor…",dl:DL.medium_technique,tip:"gouache = acquarello opaco e coprente\ncyanotype = stampa fotografica in blu prussiano\nrisograph = stampa serigrafica, colori piatti\nencaustic = pittura con cera calda\nmonotype = stampa unica da matrice"}),
           h(TFD,{...fpT("medium_render_style"),label:"Resa visiva",ph:"painterly, flat, raw, hand-crafted…",dl:DL.medium_render_style,tip:"painterly = aspetto pittorico, pennellate visibili\ngritty = grezzo e sporco, stile urbano\nnaive = primitivo intenzionale\ngestural = segno rapido ed espressivo, non rifinito"}),
-          h(TF,{...fpT("surface_quality"),label:"Superficie / Texture",ph:"rough, smooth, aged, layered…"}),
-          h(TFD,{...fpT("paper_texture"),label:"Texture carta / supporto",ph:"cold-press, canvas, Japanese paper…",dl:DL.paper_texture_dl,opt:true}),
-          h(TF,{...fpT("line_quality_style"),label:"Qualità del segno",ph:"chaotic, precise, gestural, broken…"}),
-          h(TFD,{...fpT("rendering_engine"),label:"Engine 3D",ph:"Unreal Engine 5, Octane Render…",dl:DL.rendering_engine_dl,opt:true,tip:"Usare solo per stili 3D / concept art con rendering engine specifico."}),
-          h(SF,{...fpT("detail_level"),label:"Livello dettaglio",opts:[["","— libero —"],["very minimal"],["medium abstraction"],["detailed sketch"]]})
+          h(TF,{...fpT("surface_quality"),label:"Qualità superficie",ph:"rough, polished, aged, cracked…",opt:true}),
+          h(TFD,{...fpT("line_quality_style"),label:"Qualità del segno",ph:"clean contour, cross-hatching, scratchy…",opt:true}),
+          h(TFD,{...fpT("paper_texture"),label:"Texture carta / supporto",ph:"cold-press, canvas, newsprint…",dl:DL.paper_texture_dl,opt:true}),
+          h(TFD,{...fpT("rendering_engine"),label:"Rendering engine",ph:"Unreal Engine 5, Octane…",dl:DL.rendering_engine_dl,opt:true}),
+          h(TF,{...fpT("detail_level"),label:"Livello dettaglio",ph:"hyper-detailed, simplified, selective detail…",opt:true})
         )
       ),
 
-      showFoto&&h(Acc,{title:"Fotografia",sub:"obiettivo, pellicola, diaframma, profondità di campo",open:openT.foto,onToggle:()=>togT("foto"),cnt:cntT("lens_focal","aperture","camera_model","film_stock","depth_of_field")},
-        h("div",null,
-          h("div",{className:"note"},"Compilare solo se genre_primary è 'photography' o lo stile simula fotografia realistica."),
-          h("div",{className:"g3"},
-            h(TF,{...fpT("lens_focal"),label:"Focale",ph:"35mm, 85mm, 135mm…"}),
-            h(TF,{...fpT("aperture"),label:"Diaframma",ph:"f/1.4, f/2.8, f/8…"}),
-            h(TF,{...fpT("camera_model"),label:"Corpo macchina",ph:"Leica M6, Fuji GFX…"}),
-            h(TF,{...fpT("film_stock"),label:"Pellicola / Film stock",ph:"Kodak Portra 400, Tri-X…"}),
-            h(SF,{...fpT("depth_of_field"),label:"Profondità di campo",opts:[["","— libero —"],["shallow"],["deep"],["rack focus"]]})
-          )
-        )
-      ),
-
-      h(Acc,{title:"Colore",sub:"accento, palette, temperatura, saturazione",open:openT.col,onToggle:()=>togT("col"),cnt:cntT("accent_color","secondary_accent","color_palette_style","color_temperature","saturation_level")},
+      showFoto&&h(Acc,{title:"Fotografia",sub:"focale, apertura, macchina, pellicola",open:openT.foto,onToggle:()=>togT("foto"),cnt:cntT("lens_focal","aperture","camera_model","film_stock","depth_of_field")},
         h("div",{className:"g3"},
-          h(TF,{...fpT("accent_color"),label:"Accento principale",ph:"burnt orange, ochre, crimson…"}),
-          h(TF,{...fpT("secondary_accent"),label:"Secondo accento",ph:"teal, gold, dusty rose…",opt:true}),
-          h(SF,{...fpT("color_temperature"),label:"Temperatura colore",opts:[["","— libero —"],["warm"],["cool"],["neutral"],["mixed"]]}),
-          h(TF,{...fpT("color_palette_style"),label:"Stile palette",ph:"monochrome, duotone, muted…"}),
-          h(SF,{...fpT("saturation_level"),label:"Saturazione",opts:[["","— libero —"],["desaturated"],["muted"],["vivid"]]})
+          h(TF,{...fpT("lens_focal"),label:"Focale",ph:"35mm, 50mm, 85mm, 100mm macro…"}),
+          h(TF,{...fpT("aperture"),label:"Apertura",ph:"f/1.4, f/2.8, f/8…",opt:true}),
+          h(TF,{...fpT("camera_model"),label:"Corpo macchina",ph:"Leica M6, Nikon F3, Mamiya RB67…",opt:true}),
+          h(TF,{...fpT("film_stock"),label:"Pellicola",ph:"Kodak Portra 400, Ilford HP5…",opt:true}),
+          h(TF,{...fpT("depth_of_field"),label:"Profondità di campo",ph:"shallow, deep, extreme…",opt:true})
         )
       ),
 
-      h(Acc,{title:"Atmosfera",sub:"grana, contrasto, toning, vignetta",open:openT.atm,onToggle:()=>togT("atm"),cnt:cntT("grain_texture","contrast_level","toning","vignette")},
-        h("div",{className:"g3"},
-          h(TF,{...fpT("grain_texture"),label:"Grana / Texture",ph:"film grain, noise, clean…"}),
-          h(SF,{...fpT("contrast_level"),label:"Contrasto",opts:[["","— libero —"],["flat"],["medium"],["high"]]}),
-          h(TF,{...fpT("toning"),label:"Toning / Viraggio",ph:"sepia, cyanotype, cross-process…"}),
-          h(SF,{...fpT("vignette"),label:"Vignettatura",opts:[["","— nessuna —"],["subtle"],["heavy"]]})
+      h(Acc,{title:"Colore",sub:"accenti, temperatura, palette, saturazione",open:openT.col,onToggle:()=>togT("col"),cnt:cntT("accent_color","secondary_accent","color_temperature","color_palette_style","saturation_level")},
+        h("div",{className:"g2"},
+          h(TF,{...fpT("accent_color"),label:"Colore accento principale",ph:"burnt sienna, teal, deep crimson…"}),
+          h(TF,{...fpT("secondary_accent"),label:"Accento secondario",ph:"off-white, muted gold…",opt:true}),
+          h(TF,{...fpT("color_temperature"),label:"Temperatura colore",ph:"warm, cold, neutral, amber…"}),
+          h(TF,{...fpT("color_palette_style"),label:"Stile palette",ph:"monochrome, duotone, split-complementary…",opt:true}),
+          h(TF,{...fpT("saturation_level"),label:"Saturazione",ph:"desaturated, muted, vibrant…",opt:true})
         )
       ),
 
-      h(Acc,{title:"Stile Core",sub:"keyword di stile, segno, elementi ricorrenti, esclusioni",open:openT.sc,onToggle:()=>togT("sc"),cnt:(t.core_style.length>0?1:0)+(t.line_quality.length>0?1:0)+(t.elements_to_add.length>0?1:0)+(t.elements_to_avoid.length>0?1:0)},
-        h("div",null,
-          h("div",{className:"note"},"core_style è l'incipit del prompt — se vuoto usa il fallback ink sketch. Viene compilato per ultimo dall'agente come sintesi di tutta la TECNICA."),
-          h("div",{style:{display:"flex",flexDirection:"column",gap:"10px"}},
-            h(TagsF,{label:"Core style — incipit del prompt",fkey:"core_style",vals:t.core_style,st:fsT("core_style"),onChange:setT,onRst:()=>rstT("core_style")}),
-            h(TagsF,{label:"Line quality — qualità del segno",fkey:"line_quality",vals:t.line_quality,st:fsT("line_quality"),onChange:setT,onRst:()=>rstT("line_quality")}),
-            h(TagsF,{label:"Elements to add — elementi visivi stilistici ricorrenti",fkey:"elements_to_add",vals:t.elements_to_add,st:fsT("elements_to_add"),onChange:setT,onRst:()=>rstT("elements_to_add")}),
-            h(TagsF,{label:"Elements to avoid — esclusioni specifiche (5–8 voci max)",fkey:"elements_to_avoid",vals:t.elements_to_avoid,st:fsT("elements_to_avoid"),onChange:setT,onRst:()=>rstT("elements_to_avoid")}),
-            h(TF,{...fpT("final_instruction"),label:"Final instruction — sintesi singola frase",ph:"expressive watercolor editorial portrait, loose gestural brushwork…",opt:true})
-          )
+      h(Acc,{title:"Atmosfera",sub:"grana, vignetta, contrasto, toning",open:openT.atm,onToggle:()=>togT("atm"),cnt:cntT("grain_texture","vignette","contrast_level","toning")},
+        h("div",{className:"g2"},
+          h(TF,{...fpT("grain_texture"),label:"Grana / Texture",ph:"film grain, heavy noise, clean…"}),
+          h(TF,{...fpT("vignette"),label:"Vignetta",ph:"heavy vignette, subtle vignette…",opt:true}),
+          h(TF,{...fpT("contrast_level"),label:"Contrasto",ph:"high contrast, flat, low key…"}),
+          h(TF,{...fpT("toning"),label:"Toning",ph:"sepia, cyanotype, duotone teal-orange…",opt:true})
         )
       ),
 
-      h(Acc,{title:"Enhancers",sub:"modificatori globali dello stile",open:openT.enh,onToggle:()=>togT("enh"),cnt:0},
+      h(Acc,{title:"Stile Core",sub:"sintesi tecnica, segno, elementi, istruzioni finali",open:openT.sc,onToggle:()=>togT("sc"),cnt:cntT("final_instruction")+(t.core_style.length>0?1:0)+(t.line_quality.length>0?1:0)+(t.elements_to_add.length>0?1:0)+(t.elements_to_avoid.length>0?1:0)},
+        h("div",{style:{display:"flex",flexDirection:"column",gap:"10px"}},
+          h("div",{className:"fw"},
+            h(TagsF,{label:"Core style — sintesi tecnica",fkey:"core_style",vals:t.core_style,st:fsT("core_style"),onChange:setT,onRst:()=>rstT("core_style")}),
+            coreStyleStale&&h("div",{className:"stale-hint"},"⚠ uno o più campi sorgente modificati — usa Ottimizza Stile per aggiornare")
+          ),
+          h("div",{className:"fw"},h(TagsF,{label:"Line quality",fkey:"line_quality",vals:t.line_quality,st:fsT("line_quality"),onChange:setT,onRst:()=>rstT("line_quality"),opt:true})),
+          h("div",{className:"fw"},h(TagsF,{label:"Elements to add",fkey:"elements_to_add",vals:t.elements_to_add,st:fsT("elements_to_add"),onChange:setT,onRst:()=>rstT("elements_to_add"),opt:true})),
+          h("div",{className:"fw"},h(TagsF,{label:"Elements to avoid (→ --no)",fkey:"elements_to_avoid",vals:t.elements_to_avoid,st:fsT("elements_to_avoid"),onChange:setT,onRst:()=>rstT("elements_to_avoid"),opt:true})),
+          h(TFM,{...fpT("final_instruction"),label:"Final instruction",ph:"singola frase sintetica — riferimento leggibile dell'agente, non entra nel prompt",opt:true})
+        )
+      ),
+
+      h(Acc,{title:"Enhancers",sub:"modificatori booleani",open:openT.enh,onToggle:()=>togT("enh"),cnt:(t.abstraction?1:0)+(t.motion?1:0)+(t.asymmetrical?1:0)},
         h("div",{className:"enh-row"},
-          ...[["abstraction","Astrazione elevata"],["motion","Movimento direzionale"],["asymmetrical","Composizione asimmetrica"]].map(([k,l])=>
-            h("label",{key:k,className:"check-lbl"},h("input",{type:"checkbox",checked:t[k],onChange:()=>setT(k,!t[k])}),l)
-          )
+          h("label",{className:"check-lbl"},h("input",{type:"checkbox",checked:t.abstraction,onChange:e=>setT("abstraction",e.target.checked)}),"Abstraction"),
+          h("label",{className:"check-lbl"},h("input",{type:"checkbox",checked:t.motion,onChange:e=>setT("motion",e.target.checked)}),"Motion"),
+          h("label",{className:"check-lbl"},h("input",{type:"checkbox",checked:t.asymmetrical,onChange:e=>setT("asymmetrical",e.target.checked)}),"Asymmetrical")
         )
       ),
 
-      h(Acc,{title:"MJ Defaults",sub:"parametri Midjourney per questo stile (salvati col preset Tecnica)",open:openT.mjd,onToggle:()=>togT("mjd"),cnt:0},
-        h("div",null,
-          h("div",{className:"g3"},
-            h("div",{className:"fld"},h("label",{className:"lbl"},"--v versione"),h("input",{className:"inp",type:"text",value:mj.version,onChange:um("version"),placeholder:"6.1 / 7 / 8"}),h("div",{className:"tip-text"},"aggiorna anche la tab Macchina")),
-            h("div",{className:"fld"},h("label",{className:"lbl"},"--style"),isV7?h("div",{className:"dis-note"},"non usato in v7"):h("select",{className:"inp",value:mj.style,onChange:um("style")},h("option",{value:""},"— nessuno —"),h("option",{value:"raw"},"raw"+(isV8?" (consigliato)":"")))),
-            h(MS,{label:"--q qualità",val:mj.quality,onChange:um("quality"),opts:qOpts}),
-            h(MN,{label:"--stylize 0-1000",val:mj.stylize,onChange:um("stylize"),min:0,max:1000,ph:"100"}),
-            h(MN,{label:"--chaos 0-100",val:mj.chaos,onChange:um("chaos"),min:0,max:100,ph:"0"}),
-            h(MN,{label:"--weird 0-3000",val:mj.weird,onChange:um("weird"),min:0,max:3000,ph:"0"})
-          ),
-          h("div",{className:"mj-note"},"Seed, cref, tile, hd e altri parametri di sessione → tab Macchina. sref, sw, moodboard vengono salvati con il preset Tecnica ma si impostano in Macchina → Riferimenti.")
+      h(Acc,{title:"MJ Defaults",sub:"parametri Midjourney per questo stile",open:openT.mjd,onToggle:()=>togT("mjd"),cnt:0},
+        h("div",{className:"g3"},
+          h(MVD,{label:"Versione",val:mj.version,onChange:um("version"),opts:[["5.2"],["6.0"],["6.1"],["7"],["7.1"],["8.0"],["8.1"]]}),
+          !isV7&&h(MS,{label:"Style",val:mj.style,onChange:um("style"),opts:[["","— default —"],["raw","raw"],["expressive","expressive"],["cute","cute"],["scenic","scenic"]]}),
+          h(MS,{label:"Quality",val:mj.quality,onChange:um("quality"),opts:qOpts}),
+          h(MN,{label:"Stylize",val:mj.stylize,onChange:um("stylize"),min:0,max:1000,ph:"100"}),
+          h(MN,{label:"Chaos",val:mj.chaos,onChange:um("chaos"),min:0,max:100,ph:"0"}),
+          h(MN,{label:"Weird",val:mj.weird,onChange:um("weird"),min:0,max:3000,ph:"0"})
         )
       )
     ),
 
-
-// [continua nel prossimo step]
-    // ══ TAB MACCHINA ══════════════════════════════════════════════
+    // ══ TAB MACCHINA ═══════════════════════════════════════════════
     tab==="macchina"&&h("div",null,
-      h("div",{className:"sec"},
-        h("div",{className:"sh"},"Modalità"),
-        h("div",{className:"img-toggle"},
-          h("button",{className:`img-btn${!imgMode?" on":""}`,onClick:()=>setImgMode(false)},"Testo"),
-          h("button",{className:`img-btn${imgMode?" on":""}`,onClick:()=>setImgMode(true)},"Immagine")
-        ),
-        imgMode&&h("div",{className:"img-note"},"Modalità immagine — allega la foto manualmente nel tool di destinazione. Soggetto e scena (tab Setting) sono opzionali: rinforzano l'interpretazione dell'immagine.")
-      ),
-      h("div",{className:"sec"},
-        h("div",{className:"mj-head"},
-          h("div",{className:"sh",style:{margin:0}},"Parametri Midjourney",isV8&&h("span",{className:"badge-v8"},"v8 alpha"),isV7&&h("span",{className:"badge-v7"},"v7")),
-          h("div",{className:"sub-tabs"},
-            ...["base","riferimenti","avanzati"].map(st_=>h("button",{key:st_,className:`sub-tab${mjTab===st_?" on":""}`,onClick:()=>setMjTab(st_)},st_))
-          )
-        ),
-        mjTab==="base"&&h("div",null,
-          isV8&&h("div",{className:"ver-note"},"v8 Alpha: generazione 5x più veloce, risoluzione nativa 2K con --hd. Usa --style raw per risultati meno elaborati."),
-          h("div",{className:"g4"},
-            h("div",{className:"fld"},h("label",{className:"lbl"},"--v versione"),h("input",{className:"inp",type:"text",value:mj.version,onChange:um("version"),placeholder:"es. 6.1 / 7 / 8 / 8.1"}),h("div",{className:"tip-text"},"scrivi qualsiasi versione MJ")),
-            h("div",{className:"fld"},h("label",{className:"lbl"},"--style"),isV7?h("div",{className:"dis-note"},"non usato in v7"):h("select",{className:"inp",value:mj.style,onChange:um("style")},h("option",{value:""},"— nessuno —"),h("option",{value:"raw"},"raw"+(isV8?" (consigliato)":"")))),
-            h("div",{className:"fld"},h("label",{className:"lbl"},"--q qualità"),h("select",{className:"inp",value:mj.quality,onChange:um("quality")},qOpts.map(([v,l])=>h("option",{key:v,value:v},l)))),
-            h(MN,{label:"--stylize 0-1000",val:mj.stylize,onChange:um("stylize"),min:0,max:1000,ph:isV8?"300-600":"100"}),
-            h(MN,{label:"--chaos 0-100",val:mj.chaos,onChange:um("chaos"),min:0,max:100,ph:"0"}),
-            h(MN,{label:"--weird 0-3000",val:mj.weird,onChange:um("weird"),min:0,max:3000,ph:"0"}),
-            h(MN,{label:"--seed",val:mj.seed,onChange:um("seed"),min:0,ph:"casuale"}),
-            h("div",{className:"fld",style:{display:"flex",flexDirection:"column",gap:"8px",paddingTop:"18px"}},
-              h("label",{className:"ck-sm"},h("input",{type:"checkbox",checked:mj.tile,onChange:ut("tile")}),"--tile (seamless)"),
-              h("label",{className:"ck-sm",style:{color:isV8?"var(--ts)":"var(--tt)"}},h("input",{type:"checkbox",checked:mj.hd,onChange:isV8?ut("hd"):undefined,disabled:!isV8}),h("span",null,"--hd",h("span",{style:{fontSize:"11px",color:isV8?"var(--warn-tx)":"var(--tt)",marginLeft:"5px"}},isV8?"2K nativo (4x GPU)":"solo v8")))
-            )
-          ),
-          isV8&&mj.hd&&mj.quality==="4"&&h("div",{className:"warn"},"⚠ --hd + --q 4 costano 16x GPU e non supportano Relax mode")
-        ),
-        mjTab==="riferimenti"&&h("div",{className:"g2"},
-          h("div",{className:"fld"},h("label",{className:"lbl"},"--sref URL (style reference)"),h("input",{className:"inp",type:"text",value:mj.sref,onChange:um("sref"),placeholder:"https://… o codice Style Creator"}),h("div",{className:"tip-text"},"→ tradotto in nota upload per ChatGPT e NB · salvato nei preset Tecnica")),
-          h(MN,{label:"--sw peso stile 0-1000",val:mj.sw,onChange:um("sw"),min:0,max:1000,ph:isV8?"50-200":"100"}),
-          h("div",{className:"fld fw"},h("label",{className:"lbl"},"Moodboard (più URL separati da spazio)"),h("input",{className:"inp",type:"text",value:mj.moodboard,onChange:um("moodboard"),placeholder:"https://img1.jpg https://img2.jpg https://img3.jpg…"}),h("div",{className:"tip-text"},"MJ: genera --sref url1 url2 url3 · ChatGPT/NB: nota upload immagini")),
-          h("div",{className:"fld"},h("label",{className:"lbl"},isV7?"--oref URL (omni reference)":"--cref URL (character reference)",isV8&&h("span",{className:"badge-v8",style:{marginLeft:"6px",fontSize:"10px"}},"v8")),h("input",{className:"inp",type:"text",value:mj.cref,onChange:um("cref"),placeholder:"https://…",disabled:isV8,style:{opacity:isV8?0.4:1}}),h("div",{className:"tip-text"},isV8?"⚠ non supportato in v8 — usa l'Editor di MJ per la consistenza personaggio":"→ tradotto in nota upload per ChatGPT e NB")),
-          h(MN,{label:isV7?"--ow peso omni 1-1000":"--cw peso personaggio 0-100",val:mj.cw,onChange:um("cw"),min:isV7?1:0,max:isV7?1000:100,ph:"100"}),
-          h(MN,{label:"--iw peso immagine 0-3",val:mj.iw,onChange:um("iw"),min:0,max:3,step:"0.1",ph:"1.0"}),
-          h("div",{className:"fld"},h("label",{className:"lbl"},"--p personalizzazione"),h("input",{className:"inp",type:"text",value:mj.personalize,onChange:um("personalize"),placeholder:"codice da /personalize"}),h("div",{className:"tip-text"},"applica il tuo profilo estetico MJ")),
-          isV8&&h("div",{className:"fld"},
-            h("label",{className:"lbl"},"--sv versione sref/moodboard",h("span",{className:"badge-v8",style:{marginLeft:"6px",fontSize:"10px"}},"v8")),
-            h("select",{className:"inp",value:mj.sv,onChange:um("sv"),disabled:!(mj.sref||mj.cref)},h("option",{value:"7"},"7 — default (veloce, 4x meno costoso)"),h("option",{value:"6"},"6 — precedente (più fedele, 4x GPU)")),
-            h("div",{className:"tip-text",style:{color:!(mj.sref||mj.cref)?"var(--tt)":undefined}},mj.sv==="6"?"⚠ --sv 6 incompatibile con --hd e --q 4":"attivo quando sref o cref compilati")
-          )
-        ),
-        mjTab==="avanzati"&&h("div",{className:"g2"},
-          h("div",null,
-            h("div",{className:"fld"},
-              h("label",{className:"lbl"},"--no aggiuntivi"),
-              h("input",{className:"inp",type:"text",value:mj.no_extra,onChange:um("no_extra"),placeholder:"blur, fog, rain…",disabled:!mj.useNo,style:{opacity:mj.useNo?1:0.4}}),
-              h("div",{className:"tip-text"},"MJ: aggiunto a --no · ChatGPT/NB: aggiunto ad Avoid")
-            ),
-            h("label",{className:"ck-sm",style:{marginTop:"6px"}},h("input",{type:"checkbox",checked:mj.useNo,onChange:ut("useNo")}),"includi --no nel prompt"),
-            isV8&&mj.useNo&&h("div",{className:"warn",style:{marginTop:"5px"}},"⚠ v8 alpha: --no non è supportato — verrà ignorato da MJ"),
-            isV8&&h("div",{className:"fld",style:{marginTop:"12px"}},
-              h("label",{className:"lbl"},"flag sperimentali",h("span",{className:"badge-v8",style:{marginLeft:"6px",fontSize:"10px"}},"v8")),
-              h("label",{className:"ck-sm"},h("input",{type:"checkbox",checked:mj.exp,onChange:ut("exp")}),h("span",null,"--exp",h("span",{style:{fontSize:"11px",color:"var(--tt)",marginLeft:"6px"}},"modalità sperimentale v8")))
-            )
-          ),
-          h("div",{className:"note-box"},
-            h("div",{className:"note-title"},"--no predefiniti"),
-            h("div",{className:"note-val"},"Se elements_to_avoid è vuoto:\n"+NO_DEFAULT+"\n\nNB: convertiti in framing positivo equivalente")
-          )
+      h("div",{className:"mj-head"},
+        h("div",{style:{display:"flex",gap:"4px"}},
+          h("div",{className:"sub-tab on"},"Midjourney")
         )
-      )
+      ),
+      h("div",{className:"g3",style:{marginBottom:"12px"}},
+        h(MVD,{label:"Versione",val:mj.version,onChange:um("version"),opts:[["5.2"],["6.0"],["6.1"],["7"],["7.1"],["8.0"],["8.1"]]}),
+        !isV7&&h(MS,{label:"Style",val:mj.style,onChange:um("style"),opts:[["","— default —"],["raw","raw"],["expressive","expressive"],["cute","cute"],["scenic","scenic"]]}),
+        h(MS,{label:"Quality",val:mj.quality,onChange:um("quality"),opts:qOpts})
+      ),
+      h("div",{className:"g4",style:{marginBottom:"12px"}},
+        h(MN,{label:"Stylize",val:mj.stylize,onChange:um("stylize"),min:0,max:1000,ph:"100"}),
+        h(MN,{label:"Chaos",val:mj.chaos,onChange:um("chaos"),min:0,max:100,ph:"0"}),
+        h(MN,{label:"Weird",val:mj.weird,onChange:um("weird"),min:0,max:3000,ph:"0"}),
+        h(MN,{label:"Seed",val:mj.seed,onChange:um("seed"),ph:"— libero —"})
+      ),
+      isV7&&h("div",{className:"g3",style:{marginBottom:"12px"}},
+        h("div",{className:"fld"},h("label",{className:"lbl"},"Stile visivo --sv"),h("select",{className:"inp",value:mj.sv,onChange:um("sv")},["1","2","3","4","5","6","7","8"].map(v=>h("option",{key:v,value:v},"sv "+v)))),
+        h("div",{className:"fld"},h("label",{className:"lbl"},"ORef (Character)"),h("input",{className:"inp",type:"text",value:mj.cref,onChange:um("cref"),placeholder:"https://…"})),
+        h("div",{className:"fld"},h("label",{className:"lbl"},"--ow (0–100)"),h("input",{className:"inp",type:"number",value:mj.cw,onChange:um("cw"),min:0,max:100,placeholder:"85"}))
+      ),
+      !isV7&&h("div",{className:"g3",style:{marginBottom:"12px"}},
+        h("div",{className:"fld"},h("label",{className:"lbl"},"CRef (Character)"),h("input",{className:"inp",type:"text",value:mj.cref,onChange:um("cref"),placeholder:"https://…"})),
+        h("div",{className:"fld"},h("label",{className:"lbl"},"--cw (0–100)"),h("input",{className:"inp",type:"number",value:mj.cw,onChange:um("cw"),min:0,max:100,placeholder:"85"})),
+        h("div",{className:"fld"},h("label",{className:"lbl"},"--iw (Image Weight)"),h("input",{className:"inp",type:"number",value:mj.iw,onChange:um("iw"),min:0,max:3,step:0.25,placeholder:"—"}))
+      ),
+      h("div",{className:"g2",style:{marginBottom:"12px"}},
+        h("div",{className:"fld fw"},h("label",{className:"lbl"},"SRef (Style Reference)"),h("input",{className:"inp",type:"text",value:mj.sref,onChange:um("sref"),placeholder:"https://…"})),
+        mj.sref&&h("div",{className:"fld"},h("label",{className:"lbl"},"--sw (Style Weight 0–1000)"),h("input",{className:"inp",type:"number",value:mj.sw,onChange:um("sw"),min:0,max:1000,placeholder:"100"})),
+        h("div",{className:"fld fw"},h("label",{className:"lbl"},"Moodboard (URL multipli separati da spazio)"),h("input",{className:"inp",type:"text",value:mj.moodboard,onChange:um("moodboard"),placeholder:"https://… https://…"})),
+        isV8&&(mj.sref||mj.moodboard)&&h("div",{className:"fld"},h("label",{className:"lbl"},"--sv (Style Versatility 1–7)"),h("select",{className:"inp",value:mj.sv,onChange:um("sv")},["1","2","3","4","5","6","7"].map(v=>h("option",{key:v,value:v},"sv "+v))))
+      ),
+      h("div",{className:"fld fw",style:{marginBottom:"12px"}},
+        h("label",{className:"lbl"},"Personalizzazione --p"),
+        h("input",{className:"inp",type:"text",value:mj.personalize,onChange:um("personalize"),placeholder:"codice personalizzazione MJ (opzionale)"})
+      ),
+      h("div",{className:"g2",style:{marginBottom:"12px"}},
+        h("div",{className:"fld fw"},
+          h("label",{className:"lbl"},"Elementi --no extra",h("span",{className:"opt"},"si aggiungono al --no generato automaticamente")),
+          h("input",{className:"inp",type:"text",value:mj.no_extra,onChange:um("no_extra"),placeholder:"es. blurry, overexposed, low quality…"})
+        )
+      ),
+      h("div",{className:"enh-row",style:{marginBottom:"12px"}},
+        isV8&&h("label",{className:"check-lbl"},h("input",{type:"checkbox",checked:mj.hd,onChange:ut("hd")}),"--hd (alta coerenza)"),
+        isV8&&h("label",{className:"check-lbl"},h("input",{type:"checkbox",checked:mj.exp,onChange:ut("exp")}),"--exp (experimental)"),
+        h("label",{className:"check-lbl"},h("input",{type:"checkbox",checked:mj.tile,onChange:ut("tile")}),"--tile (pattern seamless)"),
+        h("label",{className:"check-lbl"},h("input",{type:"checkbox",checked:mj.useNo,onChange:ut("useNo")}),"Includi --no")
+      ),
+      h("div",{className:"mj-note"},"I parametri --sref / --sw / --oref / --ow / --cref / --cw / --v / --style sono di sessione e non confluiscono nei preset Tecnica automaticamente. Salvali nel preset se vuoi conservarli.")
     ),
 
-    // ══ TAB SCATTO ════════════════════════════════════════════════
+    // ══ TAB SCATTO ═══════════════════════════════════════════════
     tab==="scatto"&&h("div",null,
+      h("div",{className:"img-toggle"},
+        h("button",{className:`img-btn${!imgMode?" on":""}`,onClick:()=>setImgMode(false)},"Genera immagine"),
+        h("button",{className:`img-btn${imgMode?" on":""}`,onClick:()=>setImgMode(true)},"Modifica immagine (img2img)")
+      ),
+      imgMode&&h("div",{className:"img-note"},"Modalità modifica immagine attiva — il prompt verrà adattato per img2img. Per MJ: aggiungi l'URL dell'immagine prima del prompt."),
       h("div",{className:"fmt-row"},
         h("div",{className:"fmt-tabs"},
-          ...[["midjourney","Midjourney"],["chatgpt","ChatGPT / DALL-E"],["nanobanana","Nano Banana"]].map(([v,l])=>
-            h("button",{key:v,className:`fmt-tab${fmt===v?" on":""}`,onClick:()=>setFmt(v)},l)
+          [["midjourney","Midjourney"],["chatgpt","gpt-image-2"],["nanobanana","Nano Banana"],["leonardo","Leonardo AI"]].map(([id,l])=>
+            h("button",{key:id,className:`fmt-tab${fmt===id?" on":""}`,onClick:()=>{setFmt(id);setApiOptimizedPrompt("");}},l)
           )
         ),
-        h("button",{className:`copy-btn${copied?" ok":""}`,onClick:doCopy},copied?"Copiato!":"Copia")
+        h("div",{style:{display:"flex",gap:"6px",alignItems:"center"}},
+          h("button",{className:`api-btn`,onClick:()=>callApiPrompt(output),disabled:apiLoading.prompt},
+            apiLoading.prompt?"⏳ Ottimizzazione…":"🤖 Ottimizza Prompt"
+          ),
+          h("button",{className:`copy-btn${copied?" ok":""}`,onClick:doCopy},copied?"Copiato ✓":"Copia")
+        )
       ),
-      h("textarea",{id:"pb-out",readOnly:true,value:output,className:"out",style:{height:outH}})
+      isV7&&h("div",{className:"ver-note"},"⚠ MJ v7 — parametri --oref / --ow attivi. Verifica comportamento prompt."),
+      isV8&&h("div",{className:"ver-note"},"⚠ MJ v8+ — funzionalità sperimentali attive."),
+      h("textarea",{id:"pb-out",className:"out",style:{minHeight:outH},value:output,readOnly:true}),
+      leoOverBudget&&fmt==="leonardo"&&h("div",{className:"warn",style:{marginTop:"4px"}},`⚠ Prompt troppo lungo (${leoPromptLen} car.) — il generatore potrebbe troncare. Riduci i campi.`),
+      leoNearBudget&&fmt==="leonardo"&&h("div",{className:"tip-text",style:{marginTop:"4px"}},`Prompt vicino al limite (${leoPromptLen}/900 car.) — monitorare.`),
+
+      // Ottimizza Prompt — risultato Layer 2
+      apiOptimizedPrompt&&h("div",{className:"opt-prompt"},
+        h("div",{className:"opt-prompt-hd"},
+          h("span",{className:"opt-prompt-lbl"},"🤖 Prompt ottimizzato (Layer 2)"),
+          h("button",{className:`copy-sm${copiedOpt?" ok":""}`,onClick:doCopyOpt},copiedOpt?"Copiato ✓":"Copia")
+        ),
+        h("textarea",{className:"out",style:{minHeight:"120px",margin:"0",border:"none",borderRadius:"0",background:"transparent"},value:apiOptimizedPrompt,readOnly:true}),
+        h("div",{style:{padding:"6px 12px",borderTop:"0.5px solid var(--info-bd)"}},
+          h("button",{style:{fontSize:"11px",color:"var(--tt)",cursor:"pointer",background:"none",border:"none",fontFamily:"var(--fs)"},onClick:()=>setApiOptimizedPrompt("")},"× Chiudi")
+        )
+      ),
+
+      fmt==="leonardo"&&leoInstr&&h("div",null,
+        h("div",{className:"out-hd",style:{marginTop:"16px"}},
+          h("span",{className:"out-label"},"Impostazioni interfaccia Leonardo"),
+          h("button",{className:`copy-sm${copiedInstr?" ok":""}`,onClick:doCopyInstr},copiedInstr?"Copiato ✓":"Copia")
+        ),
+        h("textarea",{id:"leo-instr-ta",className:"instr-box",value:leoInstr,readOnly:true})
+      )
     ),
 
-    // ══ TAB PERSONAGGI ════════════════════════════════════════════
+    // ══ TAB PERSONAGGI ═══════════════════════════════════════════════
     tab==="personaggi"&&h("div",null,
-      h("div",{style:{display:"flex",gap:"6px",marginBottom:"10px",flexWrap:"wrap",alignItems:"center"}},
-        h("div",{style:{display:"flex",gap:"4px",flex:"2",minWidth:"260px",flexWrap:"wrap"}},
-          h("input",{className:"inp",style:{flex:"1",minWidth:"100px",fontSize:"12px"},type:"text",value:charFilter,onChange:e=>setCharFilter(e.target.value),placeholder:"filtra per serie…"}),
-          h("select",{className:"inp",style:{flex:"2",minWidth:"160px",fontSize:"12px"},value:selectedChar,onChange:e=>{setSelectedChar(e.target.value);if(e.target.value){const c=chars.find(x=>x.name===e.target.value);if(c)setCurrentChar({...c});}else setCurrentChar({...CHAR_DF});}},
+      h("div",{className:"preset-bar"},
+        h("div",{style:{display:"flex",gap:"4px",flex:"1",minWidth:"200px"}},
+          h("select",{className:"inp",style:{flex:"1",fontSize:"12px"},value:selectedChar,onChange:e=>{setSelectedChar(e.target.value);const c=chars.find(x=>x.name===e.target.value);if(c)setCurrentChar({...c});}},
             h("option",{value:""},"— seleziona personaggio —"),
-            chars.filter(c=>!charFilter||c.series.toLowerCase().includes(charFilter.toLowerCase())).map(c=>h("option",{key:c.name,value:c.name},c.name+(c.series?" · "+c.series:"")))
+            chars.filter(c=>!charFilter||c.name.toLowerCase().includes(charFilter.toLowerCase())).map(c=>h("option",{key:c.name,value:c.name},c.name+(c.series?` (${c.series})`:"")+(c.gender?` · ${c.gender}`:"")))
           ),
-          h("button",{className:"load-btn",style:{fontSize:"11px",padding:"6px 10px"},onClick:()=>{setCurrentChar({...CHAR_DF});setSelectedChar("");}},"Nuovo"),
-          h("button",{className:"load-btn",style:{fontSize:"11px",padding:"6px 10px"},onClick:saveChar,disabled:!currentChar.name.trim()},"Salva"),
+          h("button",{className:"load-btn",style:{fontSize:"11px",padding:"6px 10px"},onClick:()=>{const c=chars.find(x=>x.name===selectedChar);if(c)setCurrentChar({...c});},disabled:!selectedChar},"Ricarica"),
           h("button",{className:"load-btn",style:{fontSize:"11px",padding:"6px 10px",opacity:selectedChar?1:0.4},onClick:deleteChar,disabled:!selectedChar},"×")
+        ),
+        h("div",{style:{display:"flex",gap:"4px",flex:"1",minWidth:"200px"}},
+          h("input",{className:"inp",style:{flex:"1",fontSize:"12px"},type:"text",value:charFilter,onChange:e=>setCharFilter(e.target.value),placeholder:"filtra personaggi…"}),
+          h("button",{className:"load-btn",style:{fontSize:"11px",padding:"6px 10px"},onClick:saveChar,disabled:!currentChar.name.trim()},"Salva")
         ),
         h("div",{style:{display:"flex",gap:"4px"}},
           h("button",{className:"load-btn",style:{fontSize:"11px",padding:"6px 10px"},onClick:exportChars,disabled:chars.length===0},"↓ Esporta"),
@@ -1060,16 +1489,10 @@ function App(){
           h("input",{ref:importCharsRef,type:"file",accept:".json",style:{display:"none"},onChange:importChars})
         )
       ),
-      chars.length===0&&h("div",{className:"tip-text",style:{marginBottom:"8px"}},"Nessun personaggio salvato — compila i campi e premi Salva per crearne uno."),
-      // Archivio
-      h("div",{className:"acc"},h("div",{className:"acc-h",onClick:()=>togCh("arch")},h("div",{className:"acc-hl"},h("div",null,h("div",{className:"acc-title"},"Archivio"),h("div",{className:"acc-sub"},"nome e serie di appartenenza"))),h("span",{className:`chev${openCh.arch?" open":""}`},"▼")),openCh.arch&&h("div",{className:"acc-b"},h("div",{className:"g2"},h("div",{className:"fld"},h("div",{className:"lbl"},"Nome"),h("input",{className:"inp",type:"text",value:currentChar.name,placeholder:"Sammy, Elena…",onChange:e=>setCC("name",e.target.value)})),h("div",{className:"fld"},h("div",{className:"lbl"},"Serie / Romanzo"),h("input",{className:"inp",type:"text",value:currentChar.series,placeholder:"titolo del romanzo o della serie…",onChange:e=>setCC("series",e.target.value)})),h("div",{className:"fld"},h("div",{className:"lbl"},"Genere"),h("input",{className:"inp",type:"text",value:currentChar.gender,list:"dl_gender",placeholder:"woman, man, non-binary…",onChange:e=>setCC("gender",e.target.value)}),h("datalist",{id:"dl_gender"},DL.gender_dl.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Razza / Etnia"),h("input",{className:"inp",type:"text",value:currentChar.ethnicity,list:"dl_ethn",placeholder:"Mediterranean, East Asian…",onChange:e=>setCC("ethnicity",e.target.value)}),h("datalist",{id:"dl_ethn"},DL.ethnicity_dl.map(o=>h("option",{key:o,value:o}))))))),
-      // Fisica
-      h("div",{className:"acc"},h("div",{className:"acc-h",onClick:()=>togCh("fis")},h("div",{className:"acc-hl"},h("div",null,h("div",{className:"acc-title"},"Fisica"),h("div",{className:"acc-sub"},"tratti fisici inclusi nel prompt"))),h("span",{className:`chev${openCh.fis?" open":""}`},"▼")),openCh.fis&&h("div",{className:"acc-b"},h("div",{className:"note",style:{marginBottom:"10px"}},"MJ gestisce meglio 5–6 tratti ben scelti che una scheda completa. Compila i tratti visivamente più caratterizzanti."),h("div",{className:"g3"},h("div",{className:"fld"},h("div",{className:"lbl"},"Età apparente"),h("input",{className:"inp",type:"text",value:currentChar.age_apparent,list:"dl_age_ap",placeholder:"teen, adult…",onChange:e=>setCC("age_apparent",e.target.value)}),h("datalist",{id:"dl_age_ap"},DL.age_apparent.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Altezza relativa"),h("input",{className:"inp",type:"text",value:currentChar.height,list:"dl_hrel",placeholder:"average, tall…",onChange:e=>setCC("height",e.target.value)}),h("datalist",{id:"dl_hrel"},DL.height_rel.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Corporatura"),h("input",{className:"inp",type:"text",value:currentChar.build,list:"dl_build",placeholder:"slender, athletic…",onChange:e=>setCC("build",e.target.value)}),h("datalist",{id:"dl_build"},DL.build_dl.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Struttura del viso",h(Tip,{text:"high cheekbones = zigomi pronunciati e alti\nflat profile = poco rilievo frontale\nstrong profile = profilo con tratti marcati\nprominent brow = arcata sopraccigliare sporgente"})),h("input",{className:"inp",type:"text",value:currentChar.face_structure,list:"dl_face",placeholder:"oval, high cheekbones…",onChange:e=>setCC("face_structure",e.target.value)}),h("datalist",{id:"dl_face"},DL.face_structure_dl.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Lineamenti"),h("input",{className:"inp",type:"text",value:currentChar.features,list:"dl_feat",placeholder:"delicate, sharp…",onChange:e=>setCC("features",e.target.value)}),h("datalist",{id:"dl_feat"},DL.features_dl.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Naso",h(Tip,{text:"aquiline = becco d'aquila\nRoman = gobba e profilo forte\nbulbous = punta arrotondata\nbutton = piccolo, tondo, all'insù\nflat = piatto con radice bassa"})),h("input",{className:"inp",type:"text",value:currentChar.nose,list:"dl_nose",placeholder:"straight, broad, aquiline…",onChange:e=>setCC("nose",e.target.value)}),h("datalist",{id:"dl_nose"},DL.nose_dl.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Carnagione"),h("input",{className:"inp",type:"text",value:currentChar.skin,list:"dl_skin",placeholder:"fair, olive, golden…",onChange:e=>setCC("skin",e.target.value)}),h("datalist",{id:"dl_skin"},DL.skin_dl.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Capelli — colore"),h("input",{className:"inp",type:"text",value:currentChar.hair_color,list:"dl_hcol",placeholder:"blonde, dark brown…",onChange:e=>setCC("hair_color",e.target.value)}),h("datalist",{id:"dl_hcol"},DL.hair_color_dl.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Capelli — lunghezza"),h("input",{className:"inp",type:"text",value:currentChar.hair_length,list:"dl_hlen",placeholder:"short, chin-length, long…",onChange:e=>setCC("hair_length",e.target.value)}),h("datalist",{id:"dl_hlen"},DL.hair_length_dl.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Capelli — forma",h(Tip,{text:"coily = riccioli a spirale stretti\nkinky = zigzag afro molto stretto\ntightly coiled = spirale compatta\nafro = capelli afro naturali"})),h("input",{className:"inp",type:"text",value:currentChar.hair_form,list:"dl_hform",placeholder:"wavy, coily, afro…",onChange:e=>setCC("hair_form",e.target.value)}),h("datalist",{id:"dl_hform"},DL.hair_form_dl.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Acconciatura",h("span",{className:"opt"},"opz.")),h("input",{className:"inp",type:"text",value:currentChar.hairstyle,list:"dl_hstyle",placeholder:"bob, chignon, braid…",onChange:e=>setCC("hairstyle",e.target.value)}),h("datalist",{id:"dl_hstyle"},DL.hairstyle_dl.map(o=>h("option",{key:o,value:o})))),!["woman","girl"].includes(currentChar.gender)&&h("div",{className:"fld"},h("div",{className:"lbl"},"Barba / Baffi",h("span",{className:"opt"},"opz.")),h("input",{className:"inp",type:"text",value:currentChar.beard,list:"dl_beard",placeholder:"stubble, full beard, bald…",onChange:e=>setCC("beard",e.target.value)}),h("datalist",{id:"dl_beard"},DL.beard_dl.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Occhi — colore"),h("input",{className:"inp",type:"text",value:currentChar.eye_color,list:"dl_ecol",placeholder:"green, hazel…",onChange:e=>setCC("eye_color",e.target.value)}),h("datalist",{id:"dl_ecol"},DL.eye_color_dl.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Occhi — forma",h(Tip,{text:"monolid = palpebra senza piega visibile\nhooded monolid = monolid con palpebra ricadente\nepicanthic fold = piega cutanea all'angolo interno"})),h("input",{className:"inp",type:"text",value:currentChar.eye_shape,list:"dl_eshp",placeholder:"almond, monolid, deep-set…",onChange:e=>setCC("eye_shape",e.target.value)}),h("datalist",{id:"dl_eshp"},DL.eye_shape_dl.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Bocca / Labbra",h("span",{className:"opt"},"opz."),h(Tip,{text:"⚠ Affidabilità bassa su MJ. Utile solo per tratti molto marcati (full lips, thin lips). Evita descrizioni sottili."})),h("input",{className:"inp",type:"text",value:currentChar.mouth_lips,list:"dl_mouth",placeholder:"full lips, thin lips…",onChange:e=>setCC("mouth_lips",e.target.value)}),h("datalist",{id:"dl_mouth"},DL.mouth_lips_dl.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld fw"},h("div",{className:"lbl"},"Tratti distintivi",h("span",{className:"opt"},"opz.")),h("input",{className:"inp",type:"text",value:currentChar.distinctive_traits,placeholder:"small scar under left eye, beauty mark…",onChange:e=>setCC("distinctive_traits",e.target.value)}))))),
-      // Espressione & Postura
-      h("div",{className:"acc"},h("div",{className:"acc-h",onClick:()=>togCh("exp")},h("div",{className:"acc-hl"},h("div",null,h("div",{className:"acc-title"},"Espressione & Postura"),h("div",{className:"acc-sub"},"mood visivo del personaggio"))),h("span",{className:`chev${openCh.exp?" open":""}`},"▼")),openCh.exp&&h("div",{className:"acc-b"},h("div",{className:"g3"},h("div",{className:"fld"},h("div",{className:"lbl"},"Espressione abituale"),h("input",{className:"inp",type:"text",value:currentChar.expression,list:"dl_expr",placeholder:"fierce, absorbed…",onChange:e=>setCC("expression",e.target.value)}),h("datalist",{id:"dl_expr"},DL.expression_dl.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Postura"),h("input",{className:"inp",type:"text",value:currentChar.posture,list:"dl_post",placeholder:"upright, fluid…",onChange:e=>setCC("posture",e.target.value)}),h("datalist",{id:"dl_post"},DL.posture_dl.map(o=>h("option",{key:o,value:o})))),h("div",{className:"fld"},h("div",{className:"lbl"},"Da evitare",h("span",{className:"opt"},"opz.")),h("input",{className:"inp",type:"text",value:currentChar.avoid,placeholder:"no smile, no soft expression…",onChange:e=>setCC("avoid",e.target.value)}))))),
-      // Riferimento Tecnico
+      h("div",{className:"acc"},h("div",{className:"acc-h",onClick:()=>togCh("arch")},h("div",{className:"acc-hl"},h("div",null,h("div",{className:"acc-title"},"Anagrafica"),h("div",{className:"acc-sub"},"nome, serie, genere, etnia, età"))),h("span",{className:`chev${openCh.arch?" open":""}`},"▼")),openCh.arch&&h("div",{className:"acc-b"},h("div",{className:"g3"},h("div",{className:"fld"},h("div",{className:"lbl"},"Nome personaggio",h("span",{style:{color:"var(--warn-tx)",marginLeft:"2px"}},currentChar.name?"":"*")),h("input",{className:"inp",type:"text",value:currentChar.name,placeholder:"es. Elena Voss",onChange:e=>setCC("name",e.target.value)})),h("div",{className:"fld"},h("div",{className:"lbl"},"Serie / Opera",h("span",{className:"opt"},"opz.")),h("input",{className:"inp",type:"text",value:currentChar.series,placeholder:"es. Serie Blackwood",onChange:e=>setCC("series",e.target.value)})),h(TFD,{label:"Genere",fkey:"gender",val:currentChar.gender,onChange:setCC,st:"default",ph:"",dl:DL.gender_dl}),h(TFD,{label:"Etnia",fkey:"ethnicity",val:currentChar.ethnicity,onChange:setCC,st:"default",ph:"",dl:DL.ethnicity_dl,opt:true}),h(TFD,{label:"Età apparente",fkey:"age_apparent",val:currentChar.age_apparent,onChange:setCC,st:"default",ph:"",dl:DL.age_apparent}),h(TFD,{label:"Altezza",fkey:"height",val:currentChar.height,onChange:setCC,st:"default",ph:"",dl:DL.height_rel,opt:true})))),
+      h("div",{className:"acc"},h("div",{className:"acc-h",onClick:()=>togCh("fis")},h("div",{className:"acc-hl"},h("div",null,h("div",{className:"acc-title"},"Fisico"),h("div",{className:"acc-sub"},"capelli, occhi, pelle, lineamenti, postura"))),h("span",{className:`chev${openCh.fis?" open":""}`},"▼")),openCh.fis&&h("div",{className:"acc-b"},h("div",{className:"g3"},h(TFD,{label:"Corporatura",fkey:"build",val:currentChar.build,onChange:setCC,st:"default",ph:"",dl:DL.build_dl}),h(TFD,{label:"Struttura viso",fkey:"face_structure",val:currentChar.face_structure,onChange:setCC,st:"default",ph:"",dl:DL.face_structure_dl,opt:true}),h(TFD,{label:"Lineamenti",fkey:"features",val:currentChar.features,onChange:setCC,st:"default",ph:"",dl:DL.features_dl,opt:true}),h(TFD,{label:"Naso",fkey:"nose",val:currentChar.nose,onChange:setCC,st:"default",ph:"",dl:DL.nose_dl,opt:true}),h(TFD,{label:"Colore capelli",fkey:"hair_color",val:currentChar.hair_color,onChange:setCC,st:"default",ph:"",dl:DL.hair_color_dl}),h(TFD,{label:"Lunghezza capelli",fkey:"hair_length",val:currentChar.hair_length,onChange:setCC,st:"default",ph:"",dl:DL.hair_length_dl}),h(TFD,{label:"Forma capelli",fkey:"hair_form",val:currentChar.hair_form,onChange:setCC,st:"default",ph:"",dl:DL.hair_form_dl}),h(TFD,{label:"Acconciatura",fkey:"hairstyle",val:currentChar.hairstyle,onChange:setCC,st:"default",ph:"",dl:DL.hairstyle_dl,opt:true}),h(TFD,{label:"Barba / Capelli viso",fkey:"beard",val:currentChar.beard,onChange:setCC,st:"default",ph:"",dl:DL.beard_dl,opt:true}),h(TFD,{label:"Colore occhi",fkey:"eye_color",val:currentChar.eye_color,onChange:setCC,st:"default",ph:"",dl:DL.eye_color_dl}),h(TFD,{label:"Forma occhi",fkey:"eye_shape",val:currentChar.eye_shape,onChange:setCC,st:"default",ph:"",dl:DL.eye_shape_dl,opt:true}),h(TFD,{label:"Carnagione",fkey:"skin",val:currentChar.skin,onChange:setCC,st:"default",ph:"",dl:DL.skin_dl}),h(TFD,{label:"Bocca / Labbra",fkey:"mouth_lips",val:currentChar.mouth_lips,onChange:setCC,st:"default",ph:"",dl:DL.mouth_lips_dl,opt:true}),h("div",{className:"fld fw"},h("div",{className:"lbl"},"Tratti distintivi",h("span",{className:"opt"},"opz.")),h("input",{className:"inp",type:"text",value:currentChar.distinctive_traits,placeholder:"cicatrice sul sopracciglio sinistro, lentiggini…",onChange:e=>setCC("distinctive_traits",e.target.value)}))))),
+      h("div",{className:"acc"},h("div",{className:"acc-h",onClick:()=>togCh("exp")},h("div",{className:"acc-hl"},h("div",null,h("div",{className:"acc-title"},"Espressione & Postura"),h("div",{className:"acc-sub"},"espressione, postura, elementi da evitare"))),h("span",{className:`chev${openCh.exp?" open":""}`},"▼")),openCh.exp&&h("div",{className:"acc-b"},h("div",{className:"g3"},h(TFD,{label:"Espressione",fkey:"expression",val:currentChar.expression,onChange:setCC,st:"default",ph:"",dl:DL.expression_dl}),h(TFD,{label:"Postura",fkey:"posture",val:currentChar.posture,onChange:setCC,st:"default",ph:"",dl:DL.posture_dl,opt:true}),h("div",{className:"fld fw"},h("div",{className:"lbl"},"Da evitare",h("span",{className:"opt"},"opz.")),h("input",{className:"inp",type:"text",value:currentChar.avoid,placeholder:"no smile, no soft expression…",onChange:e=>setCC("avoid",e.target.value)}))))),
       h("div",{className:"acc"},h("div",{className:"acc-h",onClick:()=>togCh("ref")},h("div",{className:"acc-hl"},h("div",null,h("div",{className:"acc-title"},"Riferimento Tecnico"),h("div",{className:"acc-sub"},"immagine canonica e parametri --cref"))),h("span",{className:`chev${openCh.ref?" open":""}`},"▼")),openCh.ref&&h("div",{className:"acc-b"},h("div",{className:"g2"},h("div",{className:"fld fw"},h("div",{className:"lbl"},"URL immagine canonica",h("span",{className:"opt"},"opzionale — non necessaria alla prima sessione")),h("input",{className:"inp",type:"text",value:currentChar.cref_url,placeholder:"https://… (aggiungi dopo aver generato il canonico)",onChange:e=>setCC("cref_url",e.target.value)})),h("div",{className:"fld"},h("div",{className:"lbl"},"--cw default (0–100)"),h("input",{className:"inp",type:"number",value:currentChar.cw_default,min:0,max:100,placeholder:"85",onChange:e=>setCC("cw_default",e.target.value)}),h("div",{className:"tip-text"},"peso riferimento visivo · valori bassi = più libertà interpretativa")),h("div",{className:"fld fw"},h("div",{className:"lbl"},"Note libere",h("span",{className:"opt"},"opz.")),h("textarea",{className:"inp",value:currentChar.notes,rows:3,style:{resize:"none",lineHeight:"1.5"},placeholder:"note evoluzione, varianti per libro…",onChange:e=>setCC("notes",e.target.value)}))))),
-      // Anteprima e pulsante carica
       assembleCharPrompt(currentChar)&&h("div",{className:"note",style:{marginTop:"12px"}},
         h("div",{style:{fontSize:"10px",fontWeight:"500",color:"var(--tt)",textTransform:"uppercase",letterSpacing:".06em",marginBottom:"4px"}},"Anteprima prompt personaggio"),
         assembleCharPrompt(currentChar),
@@ -1079,8 +1502,8 @@ function App(){
         h("button",{className:"load-btn",style:{fontSize:"12px",padding:"8px 16px",fontWeight:"500",opacity:currentChar.name?1:0.4},onClick:loadCharIntoSession,disabled:!currentChar.name},"Carica nella sessione →")
       )
     )
-  ); // end return
-} // end App
+  );
+}
 
 ReactDOM.render(h(App),document.getElementById("root"));
 </script>
